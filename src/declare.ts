@@ -4,10 +4,12 @@
  * @description Declare
  */
 
-export type VerifyStructure =
-    VerifyObjectStructure
+export type VerifyStructure = {
+
+    readonly type: VerifyObjectStructure
     | VerifyArrayStructure
     | VerifyEndStructure;
+};
 
 export type VerifyArrayStructure = VerifyStructure[];
 
