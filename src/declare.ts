@@ -4,7 +4,7 @@
  * @description Declare
  */
 
-export type VerifyStructure = {
+export type Pattern = {
 
     readonly type: 'string';
 } | {
@@ -16,18 +16,13 @@ export type VerifyStructure = {
 } | {
 
     readonly type: 'map';
-    readonly map: VerifyMapStructure;
+    readonly map: Record<string, Pattern>;
 } | {
 
     readonly type: 'list';
-    readonly element: VerifyStructure;
+    readonly element: Pattern;
 } | {
 
     readonly type: 'exact-list';
-    readonly list: VerifyStructure[];
-};
-
-export type VerifyMapStructure = {
-
-    readonly [key: string]: VerifyStructure;
+    readonly list: Pattern[];
 };
