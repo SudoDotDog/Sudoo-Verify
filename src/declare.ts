@@ -21,6 +21,10 @@ export type VerifyStructure = {
 
     readonly type: 'list';
     readonly element: VerifyStructure;
+} | {
+
+    readonly type: 'exact-list';
+    readonly list: VerifyStructure[];
 };
 
 export type VerifyMapStructure = {
