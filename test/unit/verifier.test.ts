@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { Verifier } from '../../src';
+import { createMockStringPattern } from '../mock/pattern';
 
 describe('Given a {Verifier} Class', (): void => {
 
@@ -15,9 +16,7 @@ describe('Given a {Verifier} Class', (): void => {
 
     it('should be able to create', (): void => {
 
-        const verifier: Verifier = Verifier.create({
-            type: 'string',
-        });
+        const verifier: Verifier = Verifier.create(createMockStringPattern());
 
         expect(verifier).to.be.instanceOf(Verifier);
     });
