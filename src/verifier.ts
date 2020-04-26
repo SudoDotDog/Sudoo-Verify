@@ -4,6 +4,7 @@
  * @description Verifier
  */
 
+import { MajorVerifyResult } from "./declare";
 import { Pattern } from "./pattern";
 
 export class Verifier {
@@ -18,5 +19,13 @@ export class Verifier {
     private constructor(pattern: Pattern) {
 
         this._pattern = pattern;
+    }
+
+    public verify(target: any): MajorVerifyResult {
+
+        return {
+            invalids: [],
+            succeed: true,
+        };
     }
 }
