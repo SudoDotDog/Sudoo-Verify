@@ -4,7 +4,7 @@
  * @description Verifier
  */
 
-import { Invalid, MajorVerifyResult, VerifyOptions } from "./declare";
+import { Invalid, MajorVerifyResult } from "./declare";
 import { Pattern } from "./pattern";
 import { verifyPattern } from "./verify";
 
@@ -37,13 +37,6 @@ export class Verifier {
         return {
             invalids,
             succeed: false,
-        };
-    }
-
-    private _getOption(): VerifyOptions {
-
-        return {
-            detailed: false,
         };
     }
 }

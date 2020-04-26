@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { Invalid, VerifyOptions } from "./declare";
+import { Invalid } from "./declare";
 import { MapPattern, Pattern, StringPattern } from "./pattern";
 
 export const verifyPattern = (
