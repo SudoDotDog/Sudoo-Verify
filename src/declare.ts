@@ -4,6 +4,11 @@
  * @description Declare
  */
 
+export type VerifyOptions = {
+
+    readonly detailed: boolean;
+};
+
 export type Invalid = {
 };
 

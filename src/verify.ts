@@ -4,10 +4,15 @@
  * @description Verify
  */
 
-import { Invalid } from "./declare";
+import { Invalid, VerifyOptions } from "./declare";
 import { MapPattern, Pattern, StringPattern } from "./pattern";
 
-export const verifyPattern = (pattern: Pattern, target: any): Invalid[] => {
+export const verifyPattern = (
+    pattern: Pattern,
+    target: any,
+    option: VerifyOptions,
+    stack: string[] = [],
+): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
@@ -15,21 +20,31 @@ export const verifyPattern = (pattern: Pattern, target: any): Invalid[] => {
 
         case 'string': {
 
-            const result: Invalid[] = verifyStringPattern(pattern, target);
+            const result: Invalid[] = verifyStringPattern(pattern, target, option, stack);
         }
     }
 
     return invalids;
 };
 
-export const verifyStringPattern = (pattern: StringPattern, target: any): Invalid[] => {
+export const verifyStringPattern = (
+    pattern: StringPattern,
+    target: any,
+    option: VerifyOptions,
+    stack: string[] = [],
+): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
     return [];
 };
 
-export const verifyMapPattern = (pattern: MapPattern, target: any): Invalid[] => {
+export const verifyMapPattern = (
+    pattern: MapPattern,
+    target: any,
+    option: VerifyOptions,
+    stack: string[],
+): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
@@ -37,7 +52,7 @@ export const verifyMapPattern = (pattern: MapPattern, target: any): Invalid[] =>
     for (const key of keys) {
 
         const childPattern: Pattern = pattern.map[key];
-        const childInvalids: Invalid[] = verifyPattern(childPattern, target[key]);
+        const childInvalids: Invalid[] = verifyPattern(childPattern, target[key], option, stack);
 
         invalids.push(...childInvalids);
     }
