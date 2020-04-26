@@ -15,7 +15,9 @@ describe('Given a {Verifier} Class', (): void => {
 
     it('should be able to create', (): void => {
 
-        const verifier: Verifier = Verifier.create();
+        const verifier: Verifier = Verifier.create({
+            type: 'string',
+        });
 
         expect(verifier).to.be.instanceOf(Verifier);
     });
