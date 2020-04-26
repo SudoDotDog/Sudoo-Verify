@@ -5,7 +5,7 @@
  */
 
 import { Invalid } from "./declare";
-import { MapPattern, Pattern, StringPattern } from "./pattern";
+import { BooleanPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const verifyPattern = (pattern: Pattern, target: any, stack: string[]): Invalid[] => {
 
@@ -17,6 +17,25 @@ export const verifyPattern = (pattern: Pattern, target: any, stack: string[]): I
 
             const result: Invalid[] = verifyStringPattern(pattern, target, stack);
             invalids.push(...result);
+            break;
+        }
+        case 'boolean': {
+
+            const result: Invalid[] = verifyBooleanPattern(pattern, target, stack);
+            invalids.push(...result);
+            break;
+        }
+        case 'number': {
+
+            const result: Invalid[] = verifyNumberPattern(pattern, target, stack);
+            invalids.push(...result);
+            break;
+        }
+        case 'map': {
+
+            const result: Invalid[] = verifyMapPattern(pattern, target, stack);
+            invalids.push(...result);
+            break;
         }
     }
 
@@ -26,6 +45,28 @@ export const verifyPattern = (pattern: Pattern, target: any, stack: string[]): I
 export const verifyStringPattern = (pattern: StringPattern, target: any, stack: string[]): Invalid[] => {
 
     if (typeof target === 'string') {
+        return [];
+    }
+
+    return [{
+        stack,
+    }];
+};
+
+export const verifyBooleanPattern = (pattern: BooleanPattern, target: any, stack: string[]): Invalid[] => {
+
+    if (typeof target === 'boolean') {
+        return [];
+    }
+
+    return [{
+        stack,
+    }];
+};
+
+export const verifyNumberPattern = (pattern: NumberPattern, target: any, stack: string[]): Invalid[] => {
+
+    if (typeof target === 'number') {
         return [];
     }
 
