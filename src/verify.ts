@@ -10,7 +10,6 @@ import { MapPattern, Pattern, StringPattern } from "./pattern";
 export const verifyPattern = (
     pattern: Pattern,
     target: any,
-    option: VerifyOptions,
     stack: string[],
 ): Invalid[] => {
 
@@ -20,7 +19,7 @@ export const verifyPattern = (
 
         case 'string': {
 
-            const result: Invalid[] = verifyStringPattern(pattern, target, option, stack);
+            const result: Invalid[] = verifyStringPattern(pattern, target, stack);
             invalids.push(...result);
         }
     }
@@ -31,7 +30,6 @@ export const verifyPattern = (
 export const verifyStringPattern = (
     pattern: StringPattern,
     target: any,
-    option: VerifyOptions,
     stack: string[],
 ): Invalid[] => {
 
@@ -49,7 +47,6 @@ export const verifyStringPattern = (
 export const verifyMapPattern = (
     pattern: MapPattern,
     target: any,
-    option: VerifyOptions,
     stack: string[],
 ): Invalid[] => {
 
@@ -59,7 +56,7 @@ export const verifyMapPattern = (
     for (const key of keys) {
 
         const childPattern: Pattern = pattern.map[key];
-        const childInvalids: Invalid[] = verifyPattern(childPattern, target[key], option, stack);
+        const childInvalids: Invalid[] = verifyPattern(childPattern, target[key], stack);
 
         invalids.push(...childInvalids);
     }

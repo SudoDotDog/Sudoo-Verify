@@ -24,7 +24,7 @@ export class Verifier {
 
     public verify(target: any): MajorVerifyResult {
 
-        const invalids: Invalid[] = verifyPattern(this._pattern, target, this._getOption(), []);
+        const invalids: Invalid[] = verifyPattern(this._pattern, target, []);
 
         if (invalids.length === 0) {
 
