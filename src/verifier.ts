@@ -4,7 +4,7 @@
  * @description Verifier
  */
 
-import { Pattern } from "./declare";
+import { Pattern } from "./pattern";
 
 export class Verifier {
 
