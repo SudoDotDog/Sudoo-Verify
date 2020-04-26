@@ -4,11 +4,6 @@
  * @description Declare
  */
 
-export type MinorVerifyResult = {
-
-    readonly succeed: boolean;
-};
-
 export type Invalid = {
 };
 

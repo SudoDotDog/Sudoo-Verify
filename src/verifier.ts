@@ -26,9 +26,17 @@ export class Verifier {
 
         const invalids: Invalid[] = verifyPattern(this._pattern, target);
 
+        if (invalids.length === 0) {
+
+            return {
+                invalids: [],
+                succeed: true,
+            };
+        }
+
         return {
             invalids,
-            succeed: true,
+            succeed: false,
         };
     }
 }

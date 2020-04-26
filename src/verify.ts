@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { Invalid, MinorVerifyResult } from "./declare";
+import { Invalid } from "./declare";
 import { MapPattern, Pattern, StringPattern } from "./pattern";
 
 export const verifyPattern = (pattern: Pattern, target: any): Invalid[] => {
@@ -15,18 +15,16 @@ export const verifyPattern = (pattern: Pattern, target: any): Invalid[] => {
 
         case 'string': {
 
-            const result: MinorVerifyResult = verifyStringPattern(pattern, target);
+            const result: Invalid[] = verifyStringPattern(pattern, target);
         }
     }
 
     return invalids;
 };
 
-export const verifyStringPattern = (pattern: StringPattern, target: any): MinorVerifyResult => {
+export const verifyStringPattern = (pattern: StringPattern, target: any): Invalid[] => {
 
-    return {
-        succeed: true,
-    };
+    return [];
 };
 
 export const verifyMapPattern = (pattern: MapPattern, target: any): Invalid[] => {
