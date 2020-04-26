@@ -4,13 +4,23 @@
  * @description Verify
  */
 
-import { MajorVerifyResult, MinorVerifyResult } from "./declare";
+import { Invalid, MajorVerifyResult, MinorVerifyResult } from "./declare";
 import { Pattern, StringPattern } from "./pattern";
 
 export const verifyPattern = (pattern: Pattern, target: any): MajorVerifyResult => {
 
+    const invalids: Invalid[] = [];
+
+    switch (pattern.type) {
+
+        case 'string': {
+
+            const result: MinorVerifyResult = verifyStringPattern(pattern, target);
+        }
+    }
+
     return {
-        invalids: [],
+        invalids,
         succeed: true,
     };
 };
