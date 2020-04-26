@@ -7,11 +7,7 @@
 import { Invalid } from "./declare";
 import { MapPattern, Pattern, StringPattern } from "./pattern";
 
-export const verifyPattern = (
-    pattern: Pattern,
-    target: any,
-    stack: string[],
-): Invalid[] => {
+export const verifyPattern = (pattern: Pattern, target: any, stack: string[]): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
@@ -27,13 +23,7 @@ export const verifyPattern = (
     return invalids;
 };
 
-export const verifyStringPattern = (
-    pattern: StringPattern,
-    target: any,
-    stack: string[],
-): Invalid[] => {
-
-    const invalids: Invalid[] = [];
+export const verifyStringPattern = (pattern: StringPattern, target: any, stack: string[]): Invalid[] => {
 
     if (typeof target === 'string') {
         return [];
@@ -44,11 +34,7 @@ export const verifyStringPattern = (
     }];
 };
 
-export const verifyMapPattern = (
-    pattern: MapPattern,
-    target: any,
-    stack: string[],
-): Invalid[] => {
+export const verifyMapPattern = (pattern: MapPattern, target: any, stack: string[]): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
