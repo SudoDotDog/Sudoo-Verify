@@ -11,7 +11,7 @@ export const verifyPattern = (
     pattern: Pattern,
     target: any,
     option: VerifyOptions,
-    stack: string[] = [],
+    stack: string[],
 ): Invalid[] => {
 
     const invalids: Invalid[] = [];
@@ -21,6 +21,7 @@ export const verifyPattern = (
         case 'string': {
 
             const result: Invalid[] = verifyStringPattern(pattern, target, option, stack);
+            invalids.push(...result);
         }
     }
 
@@ -31,12 +32,18 @@ export const verifyStringPattern = (
     pattern: StringPattern,
     target: any,
     option: VerifyOptions,
-    stack: string[] = [],
+    stack: string[],
 ): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
-    return [];
+    if (typeof target === 'string') {
+        return [];
+    }
+
+    return [{
+        stack,
+    }];
 };
 
 export const verifyMapPattern = (

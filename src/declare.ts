@@ -10,6 +10,8 @@ export type VerifyOptions = {
 };
 
 export type Invalid = {
+
+    readonly stack: string[];
 };
 
 export type MajorVerifyResult = {
