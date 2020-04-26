@@ -4,6 +4,12 @@
  * @description Declare
  */
 
+export type VerifyOption = {
+
+    readonly detailed: boolean;
+    readonly breaking: boolean;
+};
+
 export type Invalid = {
 
     readonly stack: string[];

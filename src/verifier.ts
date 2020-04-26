@@ -4,7 +4,7 @@
  * @description Verifier
  */
 
-import { Invalid, MajorVerifyResult } from "./declare";
+import { Invalid, MajorVerifyResult, VerifyOption } from "./declare";
 import { Pattern } from "./pattern";
 import { verifyPattern } from "./verify";
 
@@ -24,7 +24,7 @@ export class Verifier {
 
     public verify(target: any): MajorVerifyResult {
 
-        const invalids: Invalid[] = verifyPattern(this._pattern, target, []);
+        const invalids: Invalid[] = verifyPattern(this._pattern, target, this._getOption(), []);
 
         if (invalids.length === 0) {
 
@@ -37,6 +37,14 @@ export class Verifier {
         return {
             invalids,
             succeed: false,
+        };
+    }
+
+    private _getOption(): VerifyOption {
+
+        return {
+            detailed: false,
+            breaking: false,
         };
     }
 }
