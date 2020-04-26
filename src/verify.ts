@@ -4,8 +4,16 @@
  * @description Verify
  */
 
-import { MinorVerifyResult } from "./declare";
-import { StringPattern } from "./pattern";
+import { MajorVerifyResult, MinorVerifyResult } from "./declare";
+import { Pattern, StringPattern } from "./pattern";
+
+export const verifyPattern = (pattern: Pattern, target: any): MajorVerifyResult => {
+
+    return {
+        invalids: [],
+        succeed: true,
+    };
+};
 
 export const verifyStringPattern = (pattern: StringPattern, target: any): MinorVerifyResult => {
 

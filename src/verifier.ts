@@ -6,6 +6,7 @@
 
 import { MajorVerifyResult } from "./declare";
 import { Pattern } from "./pattern";
+import { verifyPattern } from "./verify";
 
 export class Verifier {
 
@@ -23,9 +24,6 @@ export class Verifier {
 
     public verify(target: any): MajorVerifyResult {
 
-        return {
-            invalids: [],
-            succeed: true,
-        };
+        return verifyPattern(this._pattern, target);
     }
 }
