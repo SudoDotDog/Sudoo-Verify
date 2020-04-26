@@ -34,7 +34,8 @@ export const verifyMapPattern = (pattern: MapPattern, target: any): Invalid[] =>
     const keys: string[] = Object.keys(pattern.map);
     for (const key of keys) {
 
-
+        const childPattern: Pattern = pattern.map[key];
+        const invalids: Invalid[] = verifyPattern(childPattern, target[key]);
     }
 
     return [];
