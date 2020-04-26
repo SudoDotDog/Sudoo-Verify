@@ -4,10 +4,10 @@
  * @description Verify
  */
 
-import { Invalid, MajorVerifyResult, MinorVerifyResult } from "./declare";
-import { Pattern, StringPattern } from "./pattern";
+import { Invalid, MinorVerifyResult } from "./declare";
+import { MapPattern, Pattern, StringPattern } from "./pattern";
 
-export const verifyPattern = (pattern: Pattern, target: any): MajorVerifyResult => {
+export const verifyPattern = (pattern: Pattern, target: any): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
@@ -19,10 +19,7 @@ export const verifyPattern = (pattern: Pattern, target: any): MajorVerifyResult 
         }
     }
 
-    return {
-        invalids,
-        succeed: true,
-    };
+    return invalids;
 };
 
 export const verifyStringPattern = (pattern: StringPattern, target: any): MinorVerifyResult => {
@@ -30,4 +27,15 @@ export const verifyStringPattern = (pattern: StringPattern, target: any): MinorV
     return {
         succeed: true,
     };
+};
+
+export const verifyMapPattern = (pattern: MapPattern, target: any): Invalid[] => {
+
+    const keys: string[] = Object.keys(pattern.map);
+    for (const key of keys) {
+
+
+    }
+
+    return [];
 };
