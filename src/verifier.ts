@@ -17,9 +17,24 @@ export class Verifier {
 
     private readonly _pattern: Pattern;
 
+    private _detailed: boolean = false;
+    private _breaking: boolean = false;
+
     private constructor(pattern: Pattern) {
 
         this._pattern = pattern;
+    }
+
+    public detailed(): this {
+
+        this._detailed = true;
+        return this;
+    }
+
+    public breaking(): this {
+
+        this._breaking = true;
+        return this;
     }
 
     public verify(target: any): VerifyResult {
@@ -37,8 +52,8 @@ export class Verifier {
     private _getOption(): VerifyOption {
 
         return {
-            detailed: false,
-            breaking: false,
+            detailed: this._detailed,
+            breaking: this._breaking,
         };
     }
 }
