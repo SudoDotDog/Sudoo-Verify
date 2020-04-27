@@ -47,6 +47,10 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
+
     if (typeOfTarget !== 'string') {
         return [createTypeInvalid('string', typeOfTarget, stack)];
     }
@@ -62,6 +66,10 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
+
     if (typeof target !== 'boolean') {
         return [createTypeInvalid('boolean', typeOfTarget, stack)];
     }
@@ -77,6 +85,10 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
+
     if (typeof target !== 'number') {
         return [createTypeInvalid('number', typeOfTarget, stack)];
     }
@@ -90,6 +102,11 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
     option: VerifyOption,
     stack: StackElement[],
 ): Invalid[] => {
+
+    const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
 
     if (!Array.isArray(target)) {
         return [createTypeInvalid('list', typeof target, stack)];
@@ -118,8 +135,13 @@ export const verifyExactList: VerifyFunction<ExactListPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
+    const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
+
     if (!Array.isArray(target)) {
-        return [createTypeInvalid('list', typeof target, stack)];
+        return [createTypeInvalid('list', typeOfTarget, stack)];
     }
 
     const invalids: Invalid[] = [];
@@ -152,8 +174,12 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
+
     if (typeOfTarget !== 'object') {
-        return [createTypeInvalid('map', typeof target, stack)];
+        return [createTypeInvalid('map', typeOfTarget, stack)];
     }
 
     const invalids: Invalid[] = [];

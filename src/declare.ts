@@ -51,6 +51,11 @@ export const createSizeInvalid = (expect: ExpectElement, actual: ExpectElement, 
     return createInvalid(expect, actual, 'size', stack);
 };
 
+export const createValueInvalid = (expect: ExpectElement, actual: ExpectElement, stack: StackElement[]): Invalid => {
+
+    return createInvalid(expect, actual, 'value', stack);
+};
+
 export const createVerifyResult = (succeed: boolean, invalids: Invalid[] = []): VerifyResult => {
 
     return {

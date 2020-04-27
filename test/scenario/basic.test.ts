@@ -8,7 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { createSizeInvalid, createTypeInvalid, createVerifyResult, Verifier, VerifyResult } from '../../src';
-import { createMockExactListPattern, createMockListPattern, createMockMapPattern, createMockStringPattern } from '../mock/pattern';
+import { createMockExactListPattern, createMockListPattern, createMockMapPattern, createMockOptionalMapPattern, createMockStringPattern } from '../mock/pattern';
 
 describe('Given a (Basic) Scenario', (): void => {
 
@@ -121,6 +121,17 @@ describe('Given a (Basic) Scenario', (): void => {
         const result: VerifyResult = verifier.verify({
             hello: chance.string(),
             world: chance.string(),
+        });
+
+        expect(result).to.be.deep.equal(createVerifyResult(true));
+    });
+
+    it('should be able to verify map - optional', (): void => {
+
+        const verifier: Verifier = Verifier.create(createMockOptionalMapPattern());
+
+        const result: VerifyResult = verifier.verify({
+            hello: chance.string(),
         });
 
         expect(result).to.be.deep.equal(createVerifyResult(true));

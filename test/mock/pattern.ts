@@ -50,3 +50,19 @@ export const createMockMapPattern = (): Pattern => {
         },
     };
 };
+
+export const createMockOptionalMapPattern = (): Pattern => {
+
+    return {
+        type: 'map',
+        map: {
+            hello: {
+                type: 'string',
+            },
+            world: {
+                type: 'string',
+                optional: true,
+            },
+        },
+    };
+};
