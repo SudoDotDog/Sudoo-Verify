@@ -7,8 +7,8 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createSizeInvalid, createTypeInvalid, createVerifyResult, Verifier, VerifyResult } from '../../src';
-import { createMockExactListPattern, createMockListPattern, createMockMapPattern, createMockOptionalMapPattern, createMockStringPattern } from '../mock/pattern';
+import { createSizeInvalid, createTypeInvalid, createValueInvalid, createVerifyResult, Verifier, VerifyResult } from '../../src';
+import { createMockCustomPattern, createMockExactListPattern, createMockListPattern, createMockMapPattern, createMockOptionalMapPattern, createMockStringPattern } from '../mock/pattern';
 
 describe('Given a (Basic) Scenario', (): void => {
 
@@ -158,5 +158,25 @@ describe('Given a (Basic) Scenario', (): void => {
         const result: VerifyResult = verifier.verify(chance.string());
 
         expect(result).to.be.deep.equal(createVerifyResult(false, [createTypeInvalid('map', 'string', [])]));
+    });
+
+    it('should be able to verify custom', (): void => {
+
+        const verifier: Verifier = Verifier.create(createMockCustomPattern());
+
+        const result: VerifyResult = verifier.verify(chance.string());
+
+        expect(result).to.be.deep.equal(createVerifyResult(true));
+    });
+
+    it('should be able to verify custom - sad path', (): void => {
+
+        const integer: number = chance.integer();
+
+        const verifier: Verifier = Verifier.create(createMockCustomPattern());
+
+        const result: VerifyResult = verifier.verify(integer);
+
+        expect(result).to.be.deep.equal(createVerifyResult(false, [createValueInvalid('match validate function', integer, [])]));
     });
 });

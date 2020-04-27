@@ -66,3 +66,11 @@ export const createMockOptionalMapPattern = (): Pattern => {
         },
     };
 };
+
+export const createMockCustomPattern = (): Pattern => {
+
+    return {
+        type: 'custom',
+        validate: (value: any) => typeof value === 'string',
+    };
+};
