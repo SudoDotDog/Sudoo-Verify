@@ -23,3 +23,18 @@ export const createMockListPattern = (): Pattern => {
         },
     };
 };
+
+export const createMockMapPattern = (): Pattern => {
+
+    return {
+        type: 'map',
+        map: {
+            hello: {
+                type: 'string',
+            },
+            world: {
+                type: 'string',
+            },
+        },
+    };
+};

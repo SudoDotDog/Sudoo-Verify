@@ -117,6 +117,11 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
+    const typeOfTarget = typeof target;
+    if (typeOfTarget !== 'object') {
+        return [createTypeInvalid('map', typeof target, stack)];
+    }
+
     const invalids: Invalid[] = [];
 
     const keys: StackElement[] = Object.keys(pattern.map);
