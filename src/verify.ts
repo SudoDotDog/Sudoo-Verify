@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { createTypeInvalid, Invalid, VerifyFunction, VerifyOption } from "./declare";
+import { createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { BooleanPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -25,7 +25,7 @@ export const verifyPattern = (
     pattern: Pattern,
     target: any,
     option: VerifyOption,
-    stack: string[],
+    stack: StackElement[],
 ): Invalid[] => {
 
     const invalids: Invalid[] = [];
@@ -42,7 +42,7 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     pattern: StringPattern,
     target: any,
     option: VerifyOption,
-    stack: string[],
+    stack: StackElement[],
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
@@ -57,7 +57,7 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
     pattern: BooleanPattern,
     target: any,
     option: VerifyOption,
-    stack: string[],
+    stack: StackElement[],
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
@@ -72,7 +72,7 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
     pattern: NumberPattern,
     target: any,
     option: VerifyOption,
-    stack: string[],
+    stack: StackElement[],
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
@@ -86,31 +86,46 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
 export const verifyListPattern: VerifyFunction<ListPattern> = (
     pattern: ListPattern,
     target: any,
-    options: VerifyOption,
-    stack: string[],
+    option: VerifyOption,
+    stack: StackElement[],
 ): Invalid[] => {
 
     if (Array.isArray(target)) {
         return [createTypeInvalid('array', typeof target, stack)];
     }
 
-    return [];
+    const invalids: Invalid[] = [];
+
+    const list: any[] = target;
+    for (let i = 0; i < list.length; i++) {
+
+        const newStack: StackElement[] = [...stack, i];
+
+        const element: any = list[i];
+        const elementInvalids: Invalid[] = verifyPattern(pattern.element, element, option, newStack);
+
+        invalids.push(...elementInvalids);
+    }
+
+    return invalids;
 };
 
 export const verifyMapPattern: VerifyFunction<MapPattern> = (
     pattern: MapPattern,
     target: any,
     option: VerifyOption,
-    stack: string[],
+    stack: StackElement[],
 ): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
-    const keys: string[] = Object.keys(pattern.map);
+    const keys: StackElement[] = Object.keys(pattern.map);
     for (const key of keys) {
 
+        const newStack: StackElement[] = [...stack, key];
+
         const childPattern: Pattern = pattern.map[key];
-        const childInvalids: Invalid[] = verifyPattern(childPattern, target[key], option, stack);
+        const childInvalids: Invalid[] = verifyPattern(childPattern, target[key], option, newStack);
 
         invalids.push(...childInvalids);
     }

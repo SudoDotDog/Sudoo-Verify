@@ -11,6 +11,7 @@ export type VerifyOption = {
 };
 
 export type InvalidSlice = 'type' | 'value';
+export type StackElement = string | number;
 
 export type Invalid = {
 
@@ -18,7 +19,7 @@ export type Invalid = {
     readonly actual: string;
 
     readonly slice: InvalidSlice;
-    readonly stack: string[];
+    readonly stack: StackElement[];
 };
 
 export type VerifyResult = {
@@ -27,9 +28,9 @@ export type VerifyResult = {
     readonly succeed: boolean;
 };
 
-export type VerifyFunction<P extends any = any> = (pattern: P, target: any, option: VerifyOption, stack: string[]) => Invalid[];
+export type VerifyFunction<P extends any = any> = (pattern: P, target: any, option: VerifyOption, stack: StackElement[]) => Invalid[];
 
-export const createInvalid = (expect: string, actual: string, slice: InvalidSlice, stack: string[]): Invalid => {
+export const createInvalid = (expect: string, actual: string, slice: InvalidSlice, stack: StackElement[]): Invalid => {
 
     return {
         expect,
@@ -39,7 +40,7 @@ export const createInvalid = (expect: string, actual: string, slice: InvalidSlic
     };
 };
 
-export const createTypeInvalid = (expect: string, actual: string, stack: string[]): Invalid => {
+export const createTypeInvalid = (expect: string, actual: string, stack: StackElement[]): Invalid => {
 
     return createInvalid(expect, actual, 'type', stack);
 };
