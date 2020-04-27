@@ -13,6 +13,8 @@ export type StringPattern = {
 
     readonly type: 'string';
     readonly regexp?: RegExp;
+    readonly minimumLength?: number;
+    readonly maximumLength?: number;
 } & CommonPattern;
 
 export type NumberPattern = {

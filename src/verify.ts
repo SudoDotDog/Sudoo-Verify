@@ -59,6 +59,14 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     }
 
     const text: string = target as string;
+
+    if (typeof pattern.maximumLength === 'number' && pattern.maximumLength < text.length) {
+        return [createRangeInvalid(pattern.maximumLength, text.length, 'length <', stack)];
+    }
+    if (typeof pattern.minimumLength === 'number' && pattern.minimumLength > text.length) {
+        return [createRangeInvalid(pattern.minimumLength, text.length, 'length >', stack)];
+    }
+
     if (pattern.regexp) {
 
         const regexpValidateResult: boolean = pattern.regexp.test(text);
