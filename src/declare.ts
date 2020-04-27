@@ -4,6 +4,8 @@
  * @description Declare
  */
 
+import { Pattern } from "./pattern";
+
 export type VerifyOption = {
 
     readonly detailed: boolean;
@@ -20,6 +22,8 @@ export type VerifyResult = {
     readonly invalids: Invalid[];
     readonly succeed: boolean;
 };
+
+export type VerifyFunction<P extends any = any> = (pattern: P, target: any, option: VerifyOption, stack: string[]) => Invalid[];
 
 export const createVerifyResult = (succeed: boolean, invalids: Invalid[] = []): VerifyResult => {
 

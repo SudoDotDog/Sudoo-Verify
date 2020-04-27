@@ -4,51 +4,36 @@
  * @description Verify
  */
 
-import { Invalid, VerifyOption } from "./declare";
+import { Invalid, VerifyFunction, VerifyOption } from "./declare";
 import { BooleanPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
+
+export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
+
+    switch (pattern.type) {
+
+        case 'string': return verifyStringPattern;
+        case 'boolean': return verifyBooleanPattern;
+        case 'number': return verifyNumberPattern;
+        case 'list': return verifyListPattern;
+        case 'map': return verifyMapPattern;
+    }
+
+    return null as any;
+};
 
 export const verifyPattern = (pattern: Pattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
-    switch (pattern.type) {
+    const verifyFunction: VerifyFunction = getVerifyFunction(pattern);
 
-        case 'string': {
-
-            const result: Invalid[] = verifyStringPattern(pattern, target, option, stack);
-            invalids.push(...result);
-            break;
-        }
-        case 'boolean': {
-
-            const result: Invalid[] = verifyBooleanPattern(pattern, target, option, stack);
-            invalids.push(...result);
-            break;
-        }
-        case 'number': {
-
-            const result: Invalid[] = verifyNumberPattern(pattern, target, option, stack);
-            invalids.push(...result);
-            break;
-        }
-        case 'list': {
-
-            const result: Invalid[] = verifyListPattern(pattern, target, option, stack);
-            invalids.push(...result);
-            break;
-        }
-        case 'map': {
-
-            const result: Invalid[] = verifyMapPattern(pattern, target, option, stack);
-            invalids.push(...result);
-            break;
-        }
-    }
+    const result: Invalid[] = verifyFunction(pattern, target, option, stack);
+    invalids.push(...result);
 
     return invalids;
 };
 
-export const verifyStringPattern = (pattern: StringPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyStringPattern: VerifyFunction<StringPattern> = (pattern: StringPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
     if (typeof target === 'string') {
         return [];
@@ -59,7 +44,7 @@ export const verifyStringPattern = (pattern: StringPattern, target: any, option:
     }];
 };
 
-export const verifyBooleanPattern = (pattern: BooleanPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (pattern: BooleanPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
     if (typeof target === 'boolean') {
         return [];
@@ -70,7 +55,7 @@ export const verifyBooleanPattern = (pattern: BooleanPattern, target: any, optio
     }];
 };
 
-export const verifyNumberPattern = (pattern: NumberPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyNumberPattern: VerifyFunction<NumberPattern> = (pattern: NumberPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
     if (typeof target === 'number') {
         return [];
@@ -81,7 +66,7 @@ export const verifyNumberPattern = (pattern: NumberPattern, target: any, option:
     }];
 };
 
-export const verifyListPattern = (pattern: ListPattern, target: any, options: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyListPattern: VerifyFunction<ListPattern> = (pattern: ListPattern, target: any, options: VerifyOption, stack: string[]): Invalid[] => {
 
     if (Array.isArray(target)) {
         return [];
@@ -92,7 +77,7 @@ export const verifyListPattern = (pattern: ListPattern, target: any, options: Ve
     }];
 };
 
-export const verifyMapPattern = (pattern: MapPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyMapPattern: VerifyFunction<MapPattern> = (pattern: MapPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
     const invalids: Invalid[] = [];
 

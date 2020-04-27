@@ -22,4 +22,13 @@ describe('Given a (Basic) Scenario', (): void => {
 
         expect(result).to.be.deep.equal(createVerifyResult(true));
     });
+
+    it('should be able to verify string - sad path', (): void => {
+
+        const verifier: Verifier = Verifier.create(createMockStringPattern());
+
+        const result: VerifyResult = verifier.verify(chance.integer());
+
+        expect(result).to.be.deep.equal(createVerifyResult(true));
+    });
 });
