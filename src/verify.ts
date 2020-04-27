@@ -21,7 +21,12 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
     return null as any;
 };
 
-export const verifyPattern = (pattern: Pattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyPattern = (
+    pattern: Pattern,
+    target: any,
+    option: VerifyOption,
+    stack: string[],
+): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
@@ -33,7 +38,12 @@ export const verifyPattern = (pattern: Pattern, target: any, option: VerifyOptio
     return invalids;
 };
 
-export const verifyStringPattern: VerifyFunction<StringPattern> = (pattern: StringPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyStringPattern: VerifyFunction<StringPattern> = (
+    pattern: StringPattern,
+    target: any,
+    option: VerifyOption,
+    stack: string[],
+): Invalid[] => {
 
     if (typeof target === 'string') {
         return [];
@@ -44,7 +54,12 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (pattern: Stri
     }];
 };
 
-export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (pattern: BooleanPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
+    pattern: BooleanPattern,
+    target: any,
+    option: VerifyOption,
+    stack: string[],
+): Invalid[] => {
 
     if (typeof target === 'boolean') {
         return [];
@@ -55,7 +70,12 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (pattern: Bo
     }];
 };
 
-export const verifyNumberPattern: VerifyFunction<NumberPattern> = (pattern: NumberPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
+    pattern: NumberPattern,
+    target: any,
+    option: VerifyOption,
+    stack: string[],
+): Invalid[] => {
 
     if (typeof target === 'number') {
         return [];
@@ -66,7 +86,12 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (pattern: Numb
     }];
 };
 
-export const verifyListPattern: VerifyFunction<ListPattern> = (pattern: ListPattern, target: any, options: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyListPattern: VerifyFunction<ListPattern> = (
+    pattern: ListPattern,
+    target: any,
+    options: VerifyOption,
+    stack: string[],
+): Invalid[] => {
 
     if (Array.isArray(target)) {
         return [];
@@ -77,7 +102,12 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (pattern: ListPatt
     }];
 };
 
-export const verifyMapPattern: VerifyFunction<MapPattern> = (pattern: MapPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
+export const verifyMapPattern: VerifyFunction<MapPattern> = (
+    pattern: MapPattern,
+    target: any,
+    option: VerifyOption,
+    stack: string[],
+): Invalid[] => {
 
     const invalids: Invalid[] = [];
 
