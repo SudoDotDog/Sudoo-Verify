@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
+import { createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { BooleanPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -125,6 +125,11 @@ export const verifyExactList: VerifyFunction<ExactListPattern> = (
     const invalids: Invalid[] = [];
 
     const list: any[] = target;
+
+    if (list.length !== pattern.list.length) {
+        return [createSizeInvalid(pattern.list.length, list.length, stack)];
+    }
+
     for (let i = 0; i < pattern.list.length; i++) {
 
         const newStack: StackElement[] = [...stack, i];

@@ -7,8 +7,8 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createTypeInvalid, createVerifyResult, Verifier, VerifyResult } from '../../src';
-import { createMockListPattern, createMockMapPattern, createMockStringPattern } from '../mock/pattern';
+import { createSizeInvalid, createTypeInvalid, createVerifyResult, Verifier, VerifyResult } from '../../src';
+import { createMockExactListPattern, createMockListPattern, createMockMapPattern, createMockStringPattern } from '../mock/pattern';
 
 describe('Given a (Basic) Scenario', (): void => {
 
@@ -64,16 +64,16 @@ describe('Given a (Basic) Scenario', (): void => {
 
     it('should be able to verify exact list', (): void => {
 
-        const verifier: Verifier = Verifier.create(createMockListPattern());
+        const verifier: Verifier = Verifier.create(createMockExactListPattern());
 
-        const result: VerifyResult = verifier.verify([chance.string()]);
+        const result: VerifyResult = verifier.verify([chance.string(), chance.string()]);
 
         expect(result).to.be.deep.equal(createVerifyResult(true));
     });
 
     it('should be able to verify list - sad nested', (): void => {
 
-        const verifier: Verifier = Verifier.create(createMockListPattern());
+        const verifier: Verifier = Verifier.create(createMockExactListPattern());
 
         const result: VerifyResult = verifier.verify([chance.integer(), chance.integer()]);
 
@@ -83,9 +83,31 @@ describe('Given a (Basic) Scenario', (): void => {
         ]));
     });
 
+    it('should be able to verify list - sad nested - overflow', (): void => {
+
+        const verifier: Verifier = Verifier.create(createMockExactListPattern());
+
+        const result: VerifyResult = verifier.verify([chance.string(), chance.string(), chance.string()]);
+
+        expect(result).to.be.deep.equal(createVerifyResult(false, [
+            createSizeInvalid(2, 3, []),
+        ]));
+    });
+
+    it('should be able to verify list - sad nested - shortage', (): void => {
+
+        const verifier: Verifier = Verifier.create(createMockExactListPattern());
+
+        const result: VerifyResult = verifier.verify([chance.string()]);
+
+        expect(result).to.be.deep.equal(createVerifyResult(false, [
+            createSizeInvalid(2, 1, []),
+        ]));
+    });
+
     it('should be able to verify list - sad path', (): void => {
 
-        const verifier: Verifier = Verifier.create(createMockListPattern());
+        const verifier: Verifier = Verifier.create(createMockExactListPattern());
 
         const result: VerifyResult = verifier.verify(chance.string());
 

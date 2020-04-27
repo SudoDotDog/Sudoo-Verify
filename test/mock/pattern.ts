@@ -24,6 +24,18 @@ export const createMockListPattern = (): Pattern => {
     };
 };
 
+export const createMockExactListPattern = (): Pattern => {
+
+    return {
+        type: 'exact-list',
+        list: [{
+            type: 'string',
+        }, {
+            type: 'string',
+        }],
+    };
+};
+
 export const createMockMapPattern = (): Pattern => {
 
     return {
