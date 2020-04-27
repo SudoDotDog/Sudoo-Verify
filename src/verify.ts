@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { Invalid, VerifyFunction, VerifyOption } from "./declare";
+import { createTypeInvalid, Invalid, VerifyFunction, VerifyOption } from "./declare";
 import { BooleanPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -45,13 +45,12 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     stack: string[],
 ): Invalid[] => {
 
-    if (typeof target === 'string') {
-        return [];
+    const typeOfTarget = typeof target;
+    if (typeOfTarget !== 'string') {
+        return [createTypeInvalid('string', typeOfTarget, stack)];
     }
 
-    return [{
-        stack,
-    }];
+    return [];
 };
 
 export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
@@ -61,13 +60,12 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
     stack: string[],
 ): Invalid[] => {
 
-    if (typeof target === 'boolean') {
-        return [];
+    const typeOfTarget = typeof target;
+    if (typeof target !== 'boolean') {
+        return [createTypeInvalid('boolean', typeOfTarget, stack)];
     }
 
-    return [{
-        stack,
-    }];
+    return [];
 };
 
 export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
@@ -77,13 +75,12 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
     stack: string[],
 ): Invalid[] => {
 
-    if (typeof target === 'number') {
-        return [];
+    const typeOfTarget = typeof target;
+    if (typeof target !== 'number') {
+        return [createTypeInvalid('number', typeOfTarget, stack)];
     }
 
-    return [{
-        stack,
-    }];
+    return [];
 };
 
 export const verifyListPattern: VerifyFunction<ListPattern> = (
@@ -94,12 +91,10 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
 ): Invalid[] => {
 
     if (Array.isArray(target)) {
-        return [];
+        return [createTypeInvalid('array', typeof target, stack)];
     }
 
-    return [{
-        stack,
-    }];
+    return [];
 };
 
 export const verifyMapPattern: VerifyFunction<MapPattern> = (
