@@ -18,6 +18,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;
         case 'custom': return verifyCustomPattern;
+        case 'any': return verifyAnyPattern;
     }
 
     return verifyNeverPattern;
@@ -226,6 +227,16 @@ export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
     if (!validateResult) {
         return [createValueInvalid('match validate function', target, stack)];
     }
+
+    return [];
+};
+
+export const verifyAnyPattern: VerifyFunction = (
+    pattern: any,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
 
     return [];
 };

@@ -54,6 +54,11 @@ export type CustomPattern = {
     readonly validate: (value: any) => boolean;
 } & CommonPattern;
 
+export type AnyPattern = {
+
+    readonly type: 'any';
+} & CommonPattern;
+
 export type Pattern =
     StringPattern
     | NumberPattern
@@ -61,4 +66,5 @@ export type Pattern =
     | MapPattern
     | ListPattern
     | ExactListPattern
-    | CustomPattern;
+    | CustomPattern
+    | AnyPattern;
