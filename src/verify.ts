@@ -5,7 +5,7 @@
  */
 
 import { createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { BooleanPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
+import { BooleanPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
@@ -15,10 +15,11 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'boolean': return verifyBooleanPattern;
         case 'number': return verifyNumberPattern;
         case 'list': return verifyListPattern;
+        case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;
     }
 
-    return null as any;
+    return verifyNeverPattern;
 };
 
 export const verifyPattern = (
@@ -110,6 +111,34 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
     return invalids;
 };
 
+export const verifyExactList: VerifyFunction<ExactListPattern> = (
+    pattern: ExactListPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    if (!Array.isArray(target)) {
+        return [createTypeInvalid('list', typeof target, stack)];
+    }
+
+    const invalids: Invalid[] = [];
+
+    const list: any[] = target;
+    for (let i = 0; i < pattern.list.length; i++) {
+
+        const newStack: StackElement[] = [...stack, i];
+        const currentPattern: Pattern = pattern.list[i];
+
+        const element: any = list[i];
+        const elementInvalids: Invalid[] = verifyPattern(currentPattern, element, option, newStack);
+
+        invalids.push(...elementInvalids);
+    }
+
+    return invalids;
+};
+
 export const verifyMapPattern: VerifyFunction<MapPattern> = (
     pattern: MapPattern,
     target: any,
@@ -136,4 +165,14 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
     }
 
     return invalids;
+};
+
+export const verifyNeverPattern: VerifyFunction = (
+    pattern: any,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    return [createTypeInvalid('never', typeof target, stack)];
 };
