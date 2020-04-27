@@ -18,6 +18,9 @@ export type StringPattern = {
 export type NumberPattern = {
 
     readonly type: 'number';
+    readonly integer?: boolean;
+    readonly minimum?: number;
+    readonly maximum?: number;
 } & CommonPattern;
 
 export type BooleanPattern = {

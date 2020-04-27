@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
+import { createRangeInvalid, createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { BooleanPattern, CustomPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -79,7 +79,7 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
 
     const typeOfTarget = typeof target;
 
-    if (typeof target !== 'boolean') {
+    if (typeOfTarget !== 'boolean') {
         return [createTypeInvalid('boolean', typeOfTarget, stack)];
     }
 
@@ -95,8 +95,21 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
 
     const typeOfTarget = typeof target;
 
-    if (typeof target !== 'number') {
+    if (typeOfTarget !== 'number') {
         return [createTypeInvalid('number', typeOfTarget, stack)];
+    }
+
+    const numeric: number = target as number;
+
+    if (Boolean(pattern.integer) && !Number.isInteger(numeric)) {
+        return [createTypeInvalid('integer', 'float', stack)];
+    }
+
+    if (typeof pattern.maximum === 'number' && pattern.maximum < numeric) {
+        return [createRangeInvalid(pattern.maximum, numeric, '<', stack)];
+    }
+    if (typeof pattern.minimum === 'number' && pattern.minimum > numeric) {
+        return [createRangeInvalid(pattern.minimum, numeric, '>', stack)];
     }
 
     return [];

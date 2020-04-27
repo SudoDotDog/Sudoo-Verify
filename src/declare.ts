@@ -10,7 +10,7 @@ export type VerifyOption = {
     readonly breaking: boolean;
 };
 
-export type InvalidSlice = 'type' | 'size' | 'value';
+export type InvalidSlice = 'type' | 'size' | 'value' | 'range';
 export type StackElement = string | number;
 export type ExpectElement = RegExp | string | number | boolean;
 
@@ -21,6 +21,8 @@ export type Invalid = {
 
     readonly slice: InvalidSlice;
     readonly stack: StackElement[];
+
+    readonly relationship?: string;
 };
 
 export type VerifyResult = {
@@ -31,7 +33,18 @@ export type VerifyResult = {
 
 export type VerifyFunction<P extends any = any> = (pattern: P, target: any, option: VerifyOption, stack: StackElement[]) => Invalid[];
 
-export const createInvalid = (expect: ExpectElement, actual: ExpectElement, slice: InvalidSlice, stack: StackElement[]): Invalid => {
+export const createInvalid = (expect: ExpectElement, actual: ExpectElement, slice: InvalidSlice, stack: StackElement[], relationship?: string): Invalid => {
+
+    if (typeof relationship === 'string') {
+
+        return {
+            expect,
+            actual,
+            slice,
+            stack,
+            relationship,
+        };
+    }
 
     return {
         expect,
@@ -54,6 +67,11 @@ export const createSizeInvalid = (expect: ExpectElement, actual: ExpectElement, 
 export const createValueInvalid = (expect: ExpectElement, actual: ExpectElement, stack: StackElement[]): Invalid => {
 
     return createInvalid(expect, actual, 'value', stack);
+};
+
+export const createRangeInvalid = (expect: ExpectElement, actual: ExpectElement, relationship: string, stack: StackElement[]): Invalid => {
+
+    return createInvalid(expect, actual, 'range', stack, relationship);
 };
 
 export const createVerifyResult = (succeed: boolean, invalids: Invalid[] = []): VerifyResult => {
