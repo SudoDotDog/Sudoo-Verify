@@ -43,10 +43,17 @@ export type ExactListPattern = {
     readonly list: Pattern[];
 } & CommonPattern;
 
+export type CustomPattern = {
+
+    readonly type: 'custom';
+    readonly validate: (value: any) => boolean;
+} & CommonPattern;
+
 export type Pattern =
     StringPattern
     | NumberPattern
     | BooleanPattern
     | MapPattern
     | ListPattern
-    | ExactListPattern;
+    | ExactListPattern
+    | CustomPattern;
