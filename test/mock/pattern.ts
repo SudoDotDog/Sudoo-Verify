@@ -13,3 +13,13 @@ export const createMockStringPattern = (): Pattern => {
         type: 'string',
     };
 };
+
+export const createMockListPattern = (): Pattern => {
+
+    return {
+        type: 'list',
+        element: {
+            type: 'string',
+        },
+    };
+};

@@ -90,8 +90,8 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    if (Array.isArray(target)) {
-        return [createTypeInvalid('array', typeof target, stack)];
+    if (!Array.isArray(target)) {
+        return [createTypeInvalid('list', typeof target, stack)];
     }
 
     const invalids: Invalid[] = [];
