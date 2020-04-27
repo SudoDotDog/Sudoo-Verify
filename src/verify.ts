@@ -5,7 +5,7 @@
  */
 
 import { createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { BooleanPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
+import { BooleanPattern, CustomPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
@@ -17,6 +17,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'list': return verifyListPattern;
         case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;
+        case 'custom': return verifyCustomPattern;
     }
 
     return verifyNeverPattern;
@@ -30,6 +31,11 @@ export const verifyPattern = (
 ): Invalid[] => {
 
     const invalids: Invalid[] = [];
+
+    const typeOfTarget = typeof target;
+    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
+        return [];
+    }
 
     const verifyFunction: VerifyFunction = getVerifyFunction(pattern);
 
@@ -47,9 +53,6 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
-    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
-        return [];
-    }
 
     if (typeOfTarget !== 'string') {
         return [createTypeInvalid('string', typeOfTarget, stack)];
@@ -75,9 +78,6 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
-    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
-        return [];
-    }
 
     if (typeof target !== 'boolean') {
         return [createTypeInvalid('boolean', typeOfTarget, stack)];
@@ -94,9 +94,6 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
-    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
-        return [];
-    }
 
     if (typeof target !== 'number') {
         return [createTypeInvalid('number', typeOfTarget, stack)];
@@ -111,11 +108,6 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
     option: VerifyOption,
     stack: StackElement[],
 ): Invalid[] => {
-
-    const typeOfTarget = typeof target;
-    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
-        return [];
-    }
 
     if (!Array.isArray(target)) {
         return [createTypeInvalid('list', typeof target, stack)];
@@ -145,9 +137,6 @@ export const verifyExactList: VerifyFunction<ExactListPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
-    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
-        return [];
-    }
 
     if (!Array.isArray(target)) {
         return [createTypeInvalid('list', typeOfTarget, stack)];
@@ -183,9 +172,6 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
 ): Invalid[] => {
 
     const typeOfTarget = typeof target;
-    if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
-        return [];
-    }
 
     if (typeOfTarget !== 'object') {
         return [createTypeInvalid('map', typeOfTarget, stack)];
@@ -205,6 +191,22 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
     }
 
     return invalids;
+};
+
+export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
+    pattern: CustomPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    const validateResult: boolean = pattern.validate(target);
+
+    if (!validateResult) {
+        return [createValueInvalid('match validate function', target, stack)];
+    }
+
+    return [];
 };
 
 export const verifyNeverPattern: VerifyFunction = (
