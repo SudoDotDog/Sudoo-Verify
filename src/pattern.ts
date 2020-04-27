@@ -12,6 +12,7 @@ export type CommonPattern = {
 export type StringPattern = {
 
     readonly type: 'string';
+    readonly regexp?: RegExp;
 } & CommonPattern;
 
 export type NumberPattern = {

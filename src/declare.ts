@@ -12,7 +12,7 @@ export type VerifyOption = {
 
 export type InvalidSlice = 'type' | 'size' | 'value';
 export type StackElement = string | number;
-export type ExpectElement = string | number | boolean;
+export type ExpectElement = RegExp | string | number | boolean;
 
 export type Invalid = {
 

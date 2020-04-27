@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
+import { createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { BooleanPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -53,6 +53,15 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
 
     if (typeOfTarget !== 'string') {
         return [createTypeInvalid('string', typeOfTarget, stack)];
+    }
+
+    const text: string = target as string;
+    if (pattern.regexp) {
+
+        const regexpValidateResult: boolean = pattern.regexp.test(text);
+        if (!regexpValidateResult) {
+            return [createValueInvalid(pattern.regexp, text, stack)];
+        }
     }
 
     return [];
