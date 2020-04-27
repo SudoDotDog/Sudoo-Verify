@@ -5,7 +5,7 @@
  */
 
 import { Invalid, VerifyOption } from "./declare";
-import { BooleanPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
+import { BooleanPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
 
 export const verifyPattern = (pattern: Pattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
@@ -28,6 +28,12 @@ export const verifyPattern = (pattern: Pattern, target: any, option: VerifyOptio
         case 'number': {
 
             const result: Invalid[] = verifyNumberPattern(pattern, target, option, stack);
+            invalids.push(...result);
+            break;
+        }
+        case 'list': {
+
+            const result: Invalid[] = verifyListPattern(pattern, target, option, stack);
             invalids.push(...result);
             break;
         }
@@ -67,6 +73,17 @@ export const verifyBooleanPattern = (pattern: BooleanPattern, target: any, optio
 export const verifyNumberPattern = (pattern: NumberPattern, target: any, option: VerifyOption, stack: string[]): Invalid[] => {
 
     if (typeof target === 'number') {
+        return [];
+    }
+
+    return [{
+        stack,
+    }];
+};
+
+export const verifyListPattern = (pattern: ListPattern, target: any, options: VerifyOption, stack: string[]): Invalid[] => {
+
+    if (Array.isArray(target)) {
         return [];
     }
 

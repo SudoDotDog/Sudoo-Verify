@@ -4,7 +4,7 @@
  * @description Verifier
  */
 
-import { Invalid, MajorVerifyResult, VerifyOption } from "./declare";
+import { createVerifyResult, Invalid, VerifyOption, VerifyResult } from "./declare";
 import { Pattern } from "./pattern";
 import { verifyPattern } from "./verify";
 
@@ -22,22 +22,16 @@ export class Verifier {
         this._pattern = pattern;
     }
 
-    public verify(target: any): MajorVerifyResult {
+    public verify(target: any): VerifyResult {
 
         const invalids: Invalid[] = verifyPattern(this._pattern, target, this._getOption(), []);
 
         if (invalids.length === 0) {
 
-            return {
-                invalids: [],
-                succeed: true,
-            };
+            return createVerifyResult(true);
         }
 
-        return {
-            invalids,
-            succeed: false,
-        };
+        return createVerifyResult(false, invalids);
     }
 
     private _getOption(): VerifyOption {

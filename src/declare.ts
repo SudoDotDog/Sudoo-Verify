@@ -15,8 +15,16 @@ export type Invalid = {
     readonly stack: string[];
 };
 
-export type MajorVerifyResult = {
+export type VerifyResult = {
 
     readonly invalids: Invalid[];
     readonly succeed: boolean;
+};
+
+export const createVerifyResult = (succeed: boolean, invalids: Invalid[] = []): VerifyResult => {
+
+    return {
+        succeed,
+        invalids,
+    };
 };
