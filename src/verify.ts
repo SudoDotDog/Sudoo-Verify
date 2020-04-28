@@ -135,9 +135,15 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
         return [createTypeInvalid('list', typeof target, stack)];
     }
 
-    const invalids: Invalid[] = [];
-
     const list: any[] = target;
+    if (typeof pattern.maximumSize === 'number' && pattern.maximumSize < target.length) {
+        return [createRangeInvalid(pattern.maximumSize, target.length, '<', stack)];
+    }
+    if (typeof pattern.minimumSize === 'number' && pattern.minimumSize > target.length) {
+        return [createRangeInvalid(pattern.minimumSize, target.length, '>', stack)];
+    }
+
+    const invalids: Invalid[] = [];
     for (let i = 0; i < list.length; i++) {
 
         const newStack: StackElement[] = [...stack, i];

@@ -40,6 +40,8 @@ export type ListPattern = {
 
     readonly type: 'list';
     readonly element: Pattern;
+    readonly minimumSize?: number;
+    readonly maximumSize?: number;
 } & CommonPattern;
 
 export type ExactListPattern = {
