@@ -31,10 +31,6 @@ export const attemptParseDate = (value: any, allowString: boolean): Date | null 
 
 export const fillVerifyResult = (result?: VerifyResult | null): VerifyResult => {
 
-    if (Boolean(result)) {
-        return result;
-    }
-
     if (result === null) {
 
         return {
@@ -49,6 +45,10 @@ export const fillVerifyResult = (result?: VerifyResult | null): VerifyResult => 
             succeed: false,
             invalids: [createInternalInvalid('exist', 'undefined', [])],
         };
+    }
+
+    if (result) {
+        return result;
     }
 
     return {
