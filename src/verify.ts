@@ -141,6 +141,21 @@ export const verifyDatePattern: VerifyFunction<DatePattern> = (
         return [createTypeInvalid('date', typeOfTarget, stack)];
     }
 
+    const timeStamp: number = date.getTime();
+    if (pattern.before instanceof Date) {
+        const beforeTimeStamp: number = pattern.before.getTime();
+        if (beforeTimeStamp < timeStamp) {
+            return [createRangeInvalid(pattern.before, date, '<', stack)];
+        }
+    }
+
+    if (pattern.after instanceof Date) {
+        const afterTimeStamp: number = pattern.after.getTime();
+        if (afterTimeStamp > timeStamp) {
+            return [createRangeInvalid(pattern.after, date, '>', stack)];
+        }
+    }
+
     return [];
 };
 

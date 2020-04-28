@@ -34,6 +34,8 @@ export type DatePattern = {
 
     readonly type: 'date';
     readonly allowString?: boolean;
+    readonly before?: Date;
+    readonly after?: Date;
 } & CommonPattern;
 
 export type MapPattern = {
