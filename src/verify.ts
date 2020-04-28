@@ -5,15 +5,16 @@
  */
 
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BooleanPattern, CustomPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, StringPattern } from "./pattern";
+import { AnyPattern, BooleanPattern, CustomPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, StringPattern, DatePattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
     switch (pattern.type) {
 
         case 'string': return verifyStringPattern;
-        case 'boolean': return verifyBooleanPattern;
         case 'number': return verifyNumberPattern;
+        case 'boolean': return verifyBooleanPattern;
+        case 'date': return verifyDatePattern;
         case 'list': return verifyListPattern;
         case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;
@@ -80,22 +81,6 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     return [];
 };
 
-export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
-    pattern: BooleanPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const typeOfTarget = typeof target;
-
-    if (typeOfTarget !== 'boolean') {
-        return [createTypeInvalid('boolean', typeOfTarget, stack)];
-    }
-
-    return [];
-};
-
 export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
     pattern: NumberPattern,
     target: any,
@@ -120,6 +105,38 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
     }
     if (typeof pattern.minimum === 'number' && pattern.minimum > numeric) {
         return [createRangeInvalid(pattern.minimum, numeric, '>', stack)];
+    }
+
+    return [];
+};
+
+export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
+    pattern: BooleanPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    const typeOfTarget = typeof target;
+
+    if (typeOfTarget !== 'boolean') {
+        return [createTypeInvalid('boolean', typeOfTarget, stack)];
+    }
+
+    return [];
+};
+
+export const verifyDatePattern: VerifyFunction<DatePattern> = (
+    pattern: DatePattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    const typeOfTarget = typeof target;
+
+    if (typeOfTarget !== 'boolean') {
+        return [createTypeInvalid('boolean', typeOfTarget, stack)];
     }
 
     return [];

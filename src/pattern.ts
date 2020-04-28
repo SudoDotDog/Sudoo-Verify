@@ -30,6 +30,11 @@ export type BooleanPattern = {
     readonly type: 'boolean';
 } & CommonPattern;
 
+export type DatePattern = {
+
+    readonly type: 'date';
+} & CommonPattern;
+
 export type MapPattern = {
 
     readonly type: 'map';
@@ -71,6 +76,7 @@ export type Pattern =
     StringPattern
     | NumberPattern
     | BooleanPattern
+    | DatePattern
     | MapPattern
     | ListPattern
     | ExactListPattern
