@@ -10,7 +10,7 @@ export type VerifyOption = {
     readonly breaking: boolean;
 };
 
-export type InvalidSlice = 'type' | 'size' | 'value' | 'range';
+export type InvalidSlice = 'type' | 'size' | 'value' | 'range' | 'internal';
 export type StackElement = string | number;
 export type ExpectElement = RegExp | Date | string | number | boolean;
 
@@ -72,6 +72,11 @@ export const createValueInvalid = (expect: ExpectElement, actual: ExpectElement,
 export const createRangeInvalid = (expect: ExpectElement, actual: ExpectElement, relationship: string, stack: StackElement[]): Invalid => {
 
     return createInvalid(expect, actual, 'range', stack, relationship);
+};
+
+export const createInternalInvalid = (expect: ExpectElement, actual: ExpectElement, stack: StackElement[]): Invalid => {
+
+    return createInvalid(expect, actual, 'internal', stack);
 };
 
 export const createVerifyResult = (succeed: boolean, invalids: Invalid[] = []): VerifyResult => {
