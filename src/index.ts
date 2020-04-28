@@ -6,6 +6,7 @@
 
 export * from "./declare";
 export * from "./pattern";
+export * from "./util";
 export * from "./verifier";
 export * from "./verify";
 
