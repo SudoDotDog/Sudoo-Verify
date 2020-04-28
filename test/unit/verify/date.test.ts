@@ -27,6 +27,36 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         expect(result).to.be.deep.equal([]);
     });
 
+    it('should be able to verify date - allow string', (): void => {
+
+        const pattern: DatePattern = {
+            type: 'date',
+            allowString: true,
+        };
+
+        const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), {
+            detailed: false,
+            breaking: false,
+        }, []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify date - allow string - undefined / false', (): void => {
+
+        const pattern: DatePattern = {
+            type: 'date',
+            allowString: false,
+        };
+
+        const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), {
+            detailed: false,
+            breaking: false,
+        }, []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('date', 'string', [])]);
+    });
+
     it('should be able to verify date - sad path', (): void => {
 
         const pattern: DatePattern = {
