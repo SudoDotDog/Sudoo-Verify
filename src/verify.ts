@@ -5,7 +5,7 @@
  */
 
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { BooleanPattern, CustomPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, Pattern, StringPattern } from "./pattern";
+import { AnyPattern, BooleanPattern, CustomPattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, StringPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
@@ -18,6 +18,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;
         case 'custom': return verifyCustomPattern;
+        case 'or': return verifyOrPattern;
         case 'any': return verifyAnyPattern;
     }
 
@@ -237,8 +238,18 @@ export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
     return [];
 };
 
+export const verifyOrPattern: VerifyFunction = (
+    pattern: OrPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    return [];
+};
+
 export const verifyAnyPattern: VerifyFunction = (
-    pattern: any,
+    pattern: AnyPattern,
     target: any,
     option: VerifyOption,
     stack: StackElement[],

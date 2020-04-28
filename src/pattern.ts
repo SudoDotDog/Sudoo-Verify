@@ -56,6 +56,12 @@ export type CustomPattern = {
     readonly validate: (value: any) => boolean;
 } & CommonPattern;
 
+export type OrPattern = {
+
+    readonly type: 'or';
+    readonly options: Pattern[];
+} & CommonPattern;
+
 export type AnyPattern = {
 
     readonly type: 'any';
@@ -69,4 +75,5 @@ export type Pattern =
     | ListPattern
     | ExactListPattern
     | CustomPattern
+    | OrPattern
     | AnyPattern;
