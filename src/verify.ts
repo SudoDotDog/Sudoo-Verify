@@ -245,7 +245,18 @@ export const verifyOrPattern: VerifyFunction = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    return [];
+    const invalids: Invalid[] = [];
+
+    for (const each of pattern.options) {
+
+        const result: Invalid[] = verifyPattern(each, target, option, stack);
+        if (result.length === 0) {
+            return [];
+        }
+        invalids.push(...result);
+    }
+
+    return invalids;
 };
 
 export const verifyAnyPattern: VerifyFunction = (
