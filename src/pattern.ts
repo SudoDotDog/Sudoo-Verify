@@ -33,6 +33,7 @@ export type BooleanPattern = {
 export type DatePattern = {
 
     readonly type: 'date';
+    readonly allowString?: boolean;
 } & CommonPattern;
 
 export type MapPattern = {
