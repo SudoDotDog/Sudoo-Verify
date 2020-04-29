@@ -6,6 +6,7 @@
 
 import { createVerifyResult, Invalid, VerifyOption, VerifyResult } from "./declare";
 import { Pattern } from "./pattern";
+import { hideInvalidDetail } from "./util";
 import { verifyPattern } from "./verify";
 
 export class Verifier {
@@ -17,7 +18,7 @@ export class Verifier {
 
     private readonly _pattern: Pattern;
 
-    private _detailed: boolean = false;
+    private _hidden: boolean = false;
     private _breaking: boolean = false;
 
     private constructor(pattern: Pattern) {
@@ -25,9 +26,9 @@ export class Verifier {
         this._pattern = pattern;
     }
 
-    public detailed(): this {
+    public hidden(): this {
 
-        this._detailed = true;
+        this._hidden = true;
         return this;
     }
 
@@ -46,13 +47,18 @@ export class Verifier {
             return createVerifyResult(true);
         }
 
+        if (this._hidden) {
+
+            const newInvalids: Invalid[] = invalids.map((each: Invalid) => hideInvalidDetail(each));
+            return createVerifyResult(false, newInvalids);
+        }
         return createVerifyResult(false, invalids);
     }
 
     private _getOption(): VerifyOption {
 
         return {
-            detailed: this._detailed,
+            detailed: this._hidden,
             breaking: this._breaking,
         };
     }

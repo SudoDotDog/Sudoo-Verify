@@ -4,7 +4,7 @@
  * @description Util
  */
 
-import { createInternalInvalid, Invalid, VerifyResult } from "./declare";
+import { createInternalInvalid, Invalid, VerifyResult, createHiddenInvalid } from "./declare";
 
 export const attemptParseDate = (value: any, allowString: boolean): Date | null => {
 
@@ -80,6 +80,9 @@ export const stringifyInvalid = (invalid: Invalid): string => {
         case 'internal': {
             return `Internal Error; Should be ${expect}; But got ${actual}`;
         }
+        case 'hidden': {
+            return `Type Error`;
+        }
     }
 
     return `Invalid with unknown reason`;
@@ -87,5 +90,6 @@ export const stringifyInvalid = (invalid: Invalid): string => {
 
 export const hideInvalidDetail = (invalid: Invalid): Invalid => {
 
-    return invalid;
+    const newInvalid = createHiddenInvalid('expect', 'actual', invalid.stack);
+    return newInvalid;
 };
