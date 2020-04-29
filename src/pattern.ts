@@ -25,6 +25,11 @@ export type NumberPattern = {
     readonly maximum?: number;
 } & CommonPattern;
 
+export type BigIntPattern = {
+
+    readonly type: 'bigint';
+};
+
 export type BooleanPattern = {
 
     readonly type: 'boolean';
