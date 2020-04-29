@@ -4,6 +4,7 @@
  * @description Index
  */
 
+export * from "./base";
 export * from "./declare";
 export * from "./pattern";
 export * from "./util";

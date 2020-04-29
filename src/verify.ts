@@ -4,9 +4,9 @@
  * @description Verify
  */
 
-import { createRangeInvalid, createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, RecordPattern, StringPattern } from "./pattern";
-import { attemptParseDate } from "./util";
+import { verifyAnyPattern, verifyBigIntPattern, verifyBooleanPattern, verifyCustomPattern, verifyDatePattern, verifyNeverPattern, verifyNumberPattern, verifyStringPattern } from "./base";
+import { createRangeInvalid, createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
+import { ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "./pattern";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
@@ -49,132 +49,6 @@ export const verifyPattern = (
     invalids.push(...result);
 
     return invalids;
-};
-
-export const verifyStringPattern: VerifyFunction<StringPattern> = (
-    pattern: StringPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const typeOfTarget = typeof target;
-
-    if (typeOfTarget !== 'string') {
-        return [createTypeInvalid('string', typeOfTarget, stack)];
-    }
-
-    const text: string = target as string;
-
-    if (typeof pattern.maximumLength === 'number' && pattern.maximumLength < text.length) {
-        return [createRangeInvalid(pattern.maximumLength, text.length, 'length <', stack)];
-    }
-    if (typeof pattern.minimumLength === 'number' && pattern.minimumLength > text.length) {
-        return [createRangeInvalid(pattern.minimumLength, text.length, 'length >', stack)];
-    }
-
-    if (pattern.regexp) {
-
-        const regexpValidateResult: boolean = pattern.regexp.test(text);
-        if (!regexpValidateResult) {
-            return [createValueInvalid(pattern.regexp, text, stack)];
-        }
-    }
-
-    return [];
-};
-
-export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
-    pattern: NumberPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const typeOfTarget = typeof target;
-
-    if (typeOfTarget !== 'number') {
-        return [createTypeInvalid('number', typeOfTarget, stack)];
-    }
-
-    const numeric: number = target as number;
-
-    if (Boolean(pattern.integer) && !Number.isInteger(numeric)) {
-        return [createTypeInvalid('integer', 'float', stack)];
-    }
-
-    if (typeof pattern.maximum === 'number' && pattern.maximum < numeric) {
-        return [createRangeInvalid(pattern.maximum, numeric, '<', stack)];
-    }
-    if (typeof pattern.minimum === 'number' && pattern.minimum > numeric) {
-        return [createRangeInvalid(pattern.minimum, numeric, '>', stack)];
-    }
-
-    return [];
-};
-
-export const verifyBigIntPattern: VerifyFunction<BigIntPattern> = (
-    pattern: BigIntPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const typeOfTarget = typeof target;
-
-    if (typeOfTarget !== 'bigint') {
-        return [createTypeInvalid('bigint', typeOfTarget, stack)];
-    }
-
-    return [];
-};
-
-export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
-    pattern: BooleanPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const typeOfTarget = typeof target;
-
-    if (typeOfTarget !== 'boolean') {
-        return [createTypeInvalid('boolean', typeOfTarget, stack)];
-    }
-
-    return [];
-};
-
-export const verifyDatePattern: VerifyFunction<DatePattern> = (
-    pattern: DatePattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const date: Date | null = attemptParseDate(target, Boolean(pattern.allowString));
-
-    const typeOfTarget = typeof target;
-    if (!date) {
-        return [createTypeInvalid('date', typeOfTarget, stack)];
-    }
-
-    const timeStamp: number = date.getTime();
-    if (pattern.before instanceof Date) {
-        const beforeTimeStamp: number = pattern.before.getTime();
-        if (beforeTimeStamp < timeStamp) {
-            return [createRangeInvalid(pattern.before, date, '<', stack)];
-        }
-    }
-
-    if (pattern.after instanceof Date) {
-        const afterTimeStamp: number = pattern.after.getTime();
-        if (afterTimeStamp > timeStamp) {
-            return [createRangeInvalid(pattern.after, date, '>', stack)];
-        }
-    }
-
-    return [];
 };
 
 export const verifyListPattern: VerifyFunction<ListPattern> = (
@@ -310,23 +184,6 @@ export const verifyRecordPattern: VerifyFunction<RecordPattern> = (
     return invalids;
 };
 
-
-export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
-    pattern: CustomPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    const validateResult: boolean = pattern.validate(target);
-
-    if (!validateResult) {
-        return [createValueInvalid('match validate function', target, stack)];
-    }
-
-    return [];
-};
-
 export const verifyOrPattern: VerifyFunction = (
     pattern: OrPattern,
     target: any,
@@ -346,24 +203,4 @@ export const verifyOrPattern: VerifyFunction = (
     }
 
     return invalids;
-};
-
-export const verifyAnyPattern: VerifyFunction = (
-    pattern: AnyPattern,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    return [];
-};
-
-export const verifyNeverPattern: VerifyFunction = (
-    pattern: any,
-    target: any,
-    option: VerifyOption,
-    stack: StackElement[],
-): Invalid[] => {
-
-    return [createTypeInvalid('never', typeof target, stack)];
 };
