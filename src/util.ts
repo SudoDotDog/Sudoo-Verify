@@ -75,6 +75,11 @@ export const fillStringedResult = (result?: StringedResult | null): StringedResu
 
 export const stringifyStack = (stack: StackElement[]): string => {
 
+    if (stack.length === 0) {
+
+        return '(ROOT)';
+    }
+
     const stackList: string[] = stack.map((each: StackElement) => each.toString());
     return stackList.join(' -> ');
 };
