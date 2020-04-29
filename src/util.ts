@@ -84,3 +84,8 @@ export const stringifyInvalid = (invalid: Invalid): string => {
 
     return `Invalid with unknown reason`;
 };
+
+export const hideInvalidDetail = (invalid: Invalid): Invalid => {
+
+    return invalid;
+};
