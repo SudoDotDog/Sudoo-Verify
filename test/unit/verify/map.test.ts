@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { Invalid, MapPattern, verifyMapPattern } from '../../../src';
+import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Map] Helper Method', (): void => {
 
@@ -26,10 +27,7 @@ describe('Given a [Verify-Map] Helper Method', (): void => {
 
         const result: Invalid[] = verifyMapPattern(pattern, {
             hello: chance.string(),
-        }, {
-            hidden: false,
-            breaking: false,
-        }, []);
+        }, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });

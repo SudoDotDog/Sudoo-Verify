@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { AnyPattern, Invalid, verifyAnyPattern } from '../../../src';
+import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Any] Helper Method', (): void => {
 
@@ -19,10 +20,7 @@ describe('Given a [Verify-Any] Helper Method', (): void => {
             type: 'any',
         };
 
-        const result: Invalid[] = verifyAnyPattern(pattern, chance.floating(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyAnyPattern(pattern, chance.floating(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });

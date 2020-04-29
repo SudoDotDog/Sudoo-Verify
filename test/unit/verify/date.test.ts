@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { createRangeInvalid, createTypeInvalid, DatePattern, Invalid, verifyDatePattern } from '../../../src';
+import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Date] Helper Method', (): void => {
 
@@ -19,10 +20,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
             type: 'date',
         };
 
-        const result: Invalid[] = verifyDatePattern(pattern, chance.date(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, chance.date(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
@@ -34,10 +32,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
             allowString: true,
         };
 
-        const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
@@ -49,10 +44,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
             allowString: false,
         };
 
-        const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createTypeInvalid('date', 'string', [])]);
     });
@@ -63,10 +55,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
             type: 'date',
         };
 
-        const result: Invalid[] = verifyDatePattern(pattern, chance.string(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, chance.string(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createTypeInvalid('date', 'string', [])]);
     });
@@ -85,10 +74,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
             after,
         };
 
-        const result: Invalid[] = verifyDatePattern(pattern, new Date(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, new Date(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
@@ -108,10 +94,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
 
         current.setDate(current.getDate() + 2);
 
-        const result: Invalid[] = verifyDatePattern(pattern, current, {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, current, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createRangeInvalid(before, current, '<', [])]);
     });
@@ -131,10 +114,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
 
         current.setDate(current.getDate() - 2);
 
-        const result: Invalid[] = verifyDatePattern(pattern, current, {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyDatePattern(pattern, current, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createRangeInvalid(after, current, '>', [])]);
     });

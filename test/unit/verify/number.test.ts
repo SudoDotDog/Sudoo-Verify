@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { createRangeInvalid, createTypeInvalid, Invalid, NumberPattern, verifyNumberPattern } from '../../../src';
+import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Number] Helper Method', (): void => {
 
@@ -19,10 +20,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
             type: 'number',
         };
 
-        const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
@@ -33,10 +31,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
             type: 'number',
         };
 
-        const result: Invalid[] = verifyNumberPattern(pattern, chance.string(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyNumberPattern(pattern, chance.string(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createTypeInvalid('number', 'string', [])]);
     });
@@ -48,10 +43,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
             maximum: 4,
         };
 
-        const result: Invalid[] = verifyNumberPattern(pattern, 5, {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyNumberPattern(pattern, 5, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createRangeInvalid(4, 5, '<', [])]);
     });
@@ -63,10 +55,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
             minimum: 6,
         };
 
-        const result: Invalid[] = verifyNumberPattern(pattern, 5, {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyNumberPattern(pattern, 5, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createRangeInvalid(6, 5, '>', [])]);
     });
@@ -78,10 +67,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
             integer: true,
         };
 
-        const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createTypeInvalid('integer', 'float', [])]);
     });

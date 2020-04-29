@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { Invalid, ListPattern, verifyListPattern } from '../../../src';
+import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-List] Helper Method', (): void => {
 
@@ -22,10 +23,7 @@ describe('Given a [Verify-List] Helper Method', (): void => {
             },
         };
 
-        const result: Invalid[] = verifyListPattern(pattern, [chance.string()], {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyListPattern(pattern, [chance.string()], createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
