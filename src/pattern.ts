@@ -49,6 +49,13 @@ export type MapPattern = {
     readonly map: Record<string, Pattern>;
 } & CommonPattern;
 
+export type RecordPattern = {
+
+    readonly type: 'record';
+    readonly key: Pattern;
+    readonly value: Pattern;
+} & CommonPattern;
+
 export type ListPattern = {
 
     readonly type: 'list';
@@ -87,6 +94,7 @@ export type Pattern =
     | BooleanPattern
     | DatePattern
     | MapPattern
+    | RecordPattern
     | ListPattern
     | ExactListPattern
     | CustomPattern

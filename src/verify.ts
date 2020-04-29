@@ -5,7 +5,7 @@
  */
 
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, StringPattern } from "./pattern";
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, RecordPattern, StringPattern } from "./pattern";
 import { attemptParseDate } from "./util";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -20,6 +20,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'list': return verifyListPattern;
         case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;
+        case 'record': return verifyRecordPattern;
         case 'custom': return verifyCustomPattern;
         case 'or': return verifyOrPattern;
         case 'any': return verifyAnyPattern;
@@ -272,6 +273,43 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
 
     return invalids;
 };
+
+export const verifyRecordPattern: VerifyFunction<RecordPattern> = (
+    pattern: RecordPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    const typeOfTarget = typeof target;
+
+    if (typeOfTarget !== 'object') {
+        return [createTypeInvalid('record', typeOfTarget, stack)];
+    }
+
+    const invalids: Invalid[] = [];
+
+    const keys: StackElement[] = Object.keys(target);
+    for (const key of keys) {
+
+        const newStack: StackElement[] = [...stack, `${key}(key)`];
+        const childInvalids: Invalid[] = verifyPattern(pattern.key, target[key], option, newStack);
+
+        invalids.push(...childInvalids);
+    }
+
+    const values: StackElement[] = Object.values(target);
+    for (const value of values) {
+
+        const newStack: StackElement[] = [...stack, `${value}(value)`];
+        const childInvalids: Invalid[] = verifyPattern(pattern.value, target[value], option, newStack);
+
+        invalids.push(...childInvalids);
+    }
+
+    return invalids;
+};
+
 
 export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
     pattern: CustomPattern,
