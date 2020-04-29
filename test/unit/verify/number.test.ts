@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createRangeInvalid, createTypeInvalid, Invalid, NumberPattern, verifyNumberPattern } from '../../../src';
+import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, NumberPattern, verifyNumberPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Number] Helper Method', (): void => {
@@ -70,5 +70,29 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createTypeInvalid('integer', 'float', [])]);
+    });
+
+    it('should be able to verify number - enum', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            enum: [0, 1],
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, 0, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify number - enum - sad path', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            enum: [0, 1],
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, 2, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createValueInvalid('in-enum', 2, [])]);
     });
 });
