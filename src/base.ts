@@ -23,11 +23,12 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
 
     const text: string = target as string;
 
-    if (typeof pattern.maximumLength === 'number' && pattern.maximumLength < text.length) {
-        return [createRangeInvalid(pattern.maximumLength, text.length, 'length <', stack)];
-    }
-    if (typeof pattern.minimumLength === 'number' && pattern.minimumLength > text.length) {
-        return [createRangeInvalid(pattern.minimumLength, text.length, 'length >', stack)];
+    if (Array.isArray(pattern.enum)) {
+
+        const included: boolean = pattern.enum.includes(text);
+        if (!included) {
+            return [createValueInvalid(`in-enum`, text, stack)];
+        }
     }
 
     if (pattern.regexp) {
@@ -36,6 +37,13 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
         if (!regexpValidateResult) {
             return [createValueInvalid(pattern.regexp, text, stack)];
         }
+    }
+
+    if (typeof pattern.maximumLength === 'number' && pattern.maximumLength < text.length) {
+        return [createRangeInvalid(pattern.maximumLength, text.length, 'length <', stack)];
+    }
+    if (typeof pattern.minimumLength === 'number' && pattern.minimumLength > text.length) {
+        return [createRangeInvalid(pattern.minimumLength, text.length, 'length >', stack)];
     }
 
     return [];
@@ -58,6 +66,14 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
 
     if (Boolean(pattern.integer) && !Number.isInteger(numeric)) {
         return [createTypeInvalid('integer', 'float', stack)];
+    }
+
+    if (Array.isArray(pattern.enum)) {
+
+        const included: boolean = pattern.enum.includes(numeric);
+        if (!included) {
+            return [createValueInvalid(`in-enum`, numeric, stack)];
+        }
     }
 
     if (typeof pattern.maximum === 'number' && pattern.maximum < numeric) {

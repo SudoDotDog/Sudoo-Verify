@@ -15,6 +15,7 @@ export type StringPattern = {
     readonly regexp?: RegExp;
     readonly minimumLength?: number;
     readonly maximumLength?: number;
+    readonly enum?: string[];
 } & CommonPattern;
 
 export type NumberPattern = {
@@ -23,11 +24,13 @@ export type NumberPattern = {
     readonly integer?: boolean;
     readonly minimum?: number;
     readonly maximum?: number;
+    readonly enum?: number[];
 } & CommonPattern;
 
 export type BigIntPattern = {
 
     readonly type: 'bigint';
+    readonly enum?: Array<bigint>;
 } & CommonPattern;
 
 export type BooleanPattern = {
