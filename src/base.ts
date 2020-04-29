@@ -99,6 +99,15 @@ export const verifyBigIntPattern: VerifyFunction<BigIntPattern> = (
         return [createTypeInvalid('bigint', typeOfTarget, stack)];
     }
 
+    const numeric: bigint = target as bigint;
+
+    if (Array.isArray(pattern.enum)) {
+
+        const included: boolean = pattern.enum.includes(numeric);
+        if (!included) {
+            return [createValueInvalid(`in-enum`, numeric.toString(), stack)];
+        }
+    }
     return [];
 };
 
