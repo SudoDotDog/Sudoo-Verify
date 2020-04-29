@@ -8,6 +8,7 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, StringPattern, verifyStringPattern } from '../../../src';
+import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-String] Helper Method', (): void => {
 
@@ -19,10 +20,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
             type: 'string',
         };
 
-        const result: Invalid[] = verifyStringPattern(pattern, chance.string(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyStringPattern(pattern, chance.string(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
@@ -33,10 +31,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
             type: 'string',
         };
 
-        const result: Invalid[] = verifyStringPattern(pattern, chance.integer(), {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyStringPattern(pattern, chance.integer(), createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createTypeInvalid('string', 'number', [])]);
     });
@@ -48,10 +43,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
             maximumLength: 4,
         };
 
-        const result: Invalid[] = verifyStringPattern(pattern, '12345', {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyStringPattern(pattern, '12345', createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createRangeInvalid(4, 5, 'length <', [])]);
     });
@@ -63,10 +55,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
             minimumLength: 6,
         };
 
-        const result: Invalid[] = verifyStringPattern(pattern, '12345', {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyStringPattern(pattern, '12345', createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createRangeInvalid(6, 5, 'length >', [])]);
     });
@@ -78,10 +67,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
             regexp: /^[A-Za-z]+$/,
         };
 
-        const result: Invalid[] = verifyStringPattern(pattern, 'String', {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyStringPattern(pattern, 'String', createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });
@@ -96,11 +82,32 @@ describe('Given a [Verify-String] Helper Method', (): void => {
             regexp,
         };
 
-        const result: Invalid[] = verifyStringPattern(pattern, target, {
-            hidden: false,
-            breaking: false,
-        }, []);
+        const result: Invalid[] = verifyStringPattern(pattern, target, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([createValueInvalid(regexp, target, [])]);
+    });
+
+    it('should be able to verify string - enum', (): void => {
+
+        const pattern: StringPattern = {
+            type: 'string',
+            enum: ['first', 'second'],
+        };
+
+        const result: Invalid[] = verifyStringPattern(pattern, 'second', createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify string - enum - sad path', (): void => {
+
+        const pattern: StringPattern = {
+            type: 'string',
+            enum: ['first', 'second'],
+        };
+
+        const result: Invalid[] = verifyStringPattern(pattern, 'third', createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createValueInvalid('in-enum', 'third', [])]);
     });
 });
