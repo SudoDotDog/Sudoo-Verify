@@ -1,17 +1,17 @@
 /**
  * @author WMXPY
- * @namespace Verify
- * @description Util
+ * @namespace Verify_Util
+ * @description Fill Verify Result
  * @override Unit
  */
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createInternalInvalid, createTypeInvalid, fillVerifyResult, VerifyResult } from '../../src';
+import { createInternalInvalid, createTypeInvalid, fillVerifyResult, VerifyResult } from '../../../src';
 
-describe('Given a [Util] helper functions Class', (): void => {
+describe('Given a [Util-FillVerifyResult] helper functions Class', (): void => {
 
-    const chance: Chance.Chance = new Chance('verify-util');
+    const chance: Chance.Chance = new Chance('verify-util-fill-verify-result');
 
     it('should be able to fill verify result', (): void => {
 
