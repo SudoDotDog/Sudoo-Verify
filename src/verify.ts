@@ -5,7 +5,7 @@
  */
 
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BooleanPattern, CustomPattern, DatePattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, StringPattern } from "./pattern";
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactListPattern, ListPattern, MapPattern, NumberPattern, OrPattern, Pattern, StringPattern } from "./pattern";
 import { attemptParseDate } from "./util";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
@@ -14,6 +14,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
         case 'string': return verifyStringPattern;
         case 'number': return verifyNumberPattern;
+        case 'bigint': return verifyBigIntPattern;
         case 'boolean': return verifyBooleanPattern;
         case 'date': return verifyDatePattern;
         case 'list': return verifyListPattern;
@@ -106,6 +107,22 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
     }
     if (typeof pattern.minimum === 'number' && pattern.minimum > numeric) {
         return [createRangeInvalid(pattern.minimum, numeric, '>', stack)];
+    }
+
+    return [];
+};
+
+export const verifyBigIntPattern: VerifyFunction<BigIntPattern> = (
+    pattern: BigIntPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    const typeOfTarget = typeof target;
+
+    if (typeOfTarget !== 'bigint') {
+        return [createTypeInvalid('bigint', typeOfTarget, stack)];
     }
 
     return [];

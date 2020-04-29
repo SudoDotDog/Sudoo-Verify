@@ -28,7 +28,7 @@ export type NumberPattern = {
 export type BigIntPattern = {
 
     readonly type: 'bigint';
-};
+} & CommonPattern;
 
 export type BooleanPattern = {
 
@@ -83,6 +83,7 @@ export type AnyPattern = {
 export type Pattern =
     StringPattern
     | NumberPattern
+    | BigIntPattern
     | BooleanPattern
     | DatePattern
     | MapPattern
