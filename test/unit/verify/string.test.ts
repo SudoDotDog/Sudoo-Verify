@@ -20,7 +20,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyStringPattern(pattern, chance.string(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -34,7 +34,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyStringPattern(pattern, chance.integer(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -49,7 +49,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyStringPattern(pattern, '12345', {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -64,7 +64,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyStringPattern(pattern, '12345', {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -79,7 +79,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyStringPattern(pattern, 'String', {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -97,7 +97,7 @@ describe('Given a [Verify-String] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyStringPattern(pattern, target, {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 

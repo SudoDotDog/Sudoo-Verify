@@ -27,7 +27,7 @@ describe('Given a [Verify-Map] Helper Method', (): void => {
         const result: Invalid[] = verifyMapPattern(pattern, {
             hello: chance.string(),
         }, {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 

@@ -20,7 +20,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyDatePattern(pattern, chance.date(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -35,7 +35,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -50,7 +50,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyDatePattern(pattern, chance.date().toISOString(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -64,7 +64,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyDatePattern(pattern, chance.string(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -86,7 +86,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyDatePattern(pattern, new Date(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -109,7 +109,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         current.setDate(current.getDate() + 2);
 
         const result: Invalid[] = verifyDatePattern(pattern, current, {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -132,7 +132,7 @@ describe('Given a [Verify-Date] Helper Method', (): void => {
         current.setDate(current.getDate() - 2);
 
         const result: Invalid[] = verifyDatePattern(pattern, current, {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 

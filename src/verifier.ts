@@ -58,7 +58,7 @@ export class Verifier {
     private _getOption(): VerifyOption {
 
         return {
-            detailed: this._hidden,
+            hidden: this._hidden,
             breaking: this._breaking,
         };
     }

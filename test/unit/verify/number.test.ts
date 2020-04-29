@@ -20,7 +20,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -34,7 +34,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyNumberPattern(pattern, chance.string(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -49,7 +49,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyNumberPattern(pattern, 5, {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -64,7 +64,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyNumberPattern(pattern, 5, {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 
@@ -79,7 +79,7 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyNumberPattern(pattern, chance.floating(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 

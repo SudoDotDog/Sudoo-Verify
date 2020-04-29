@@ -23,7 +23,7 @@ describe('Given a [Verify-List] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyListPattern(pattern, [chance.string()], {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 

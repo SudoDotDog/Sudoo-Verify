@@ -20,7 +20,7 @@ describe('Given a [Verify-Any] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyAnyPattern(pattern, chance.floating(), {
-            detailed: false,
+            hidden: false,
             breaking: false,
         }, []);
 

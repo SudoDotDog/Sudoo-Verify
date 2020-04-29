@@ -6,7 +6,7 @@
 
 export type VerifyOption = {
 
-    readonly detailed: boolean;
+    readonly hidden: boolean;
     readonly breaking: boolean;
 };
 
