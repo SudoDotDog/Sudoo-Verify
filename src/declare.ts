@@ -31,6 +31,12 @@ export type VerifyResult = {
     readonly succeed: boolean;
 };
 
+export type StringedResult = {
+
+    readonly invalids: string[];
+    readonly succeed: boolean;
+};
+
 export type VerifyFunction<P extends any = any> = (pattern: P, target: any, option: VerifyOption, stack: StackElement[]) => Invalid[];
 
 export const createInvalid = (expect: ExpectElement, actual: ExpectElement, slice: InvalidSlice, stack: StackElement[], relationship?: string): Invalid => {
@@ -85,6 +91,14 @@ export const createHiddenInvalid = (expect: ExpectElement, actual: ExpectElement
 };
 
 export const createVerifyResult = (succeed: boolean, invalids: Invalid[] = []): VerifyResult => {
+
+    return {
+        succeed,
+        invalids,
+    };
+};
+
+export const createStringedResult = (succeed: boolean, invalids: string[] = []): StringedResult => {
 
     return {
         succeed,

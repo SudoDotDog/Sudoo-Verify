@@ -4,9 +4,9 @@
  * @description Verifier
  */
 
-import { createVerifyResult, Invalid, VerifyOption, VerifyResult } from "./declare";
+import { createStringedResult, createVerifyResult, Invalid, StringedResult, VerifyOption, VerifyResult } from "./declare";
 import { Pattern } from "./pattern";
-import { hideInvalidDetail } from "./util";
+import { hideInvalidDetail, stringifyInvalid } from "./util";
 import { verifyPattern } from "./verify";
 
 export class Verifier {
@@ -53,6 +53,17 @@ export class Verifier {
             return createVerifyResult(false, newInvalids);
         }
         return createVerifyResult(false, invalids);
+    }
+
+    public conclude(target: any): StringedResult {
+
+        const result: VerifyResult = this.verify(target);
+        if (result.succeed) {
+            return createStringedResult(true);
+        }
+
+        const parsed: string[] = result.invalids.map((each: Invalid) => stringifyInvalid(each));
+        return createStringedResult(false, parsed);
     }
 
     private _getOption(): VerifyOption {

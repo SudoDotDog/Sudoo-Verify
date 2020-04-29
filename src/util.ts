@@ -4,7 +4,7 @@
  * @description Util
  */
 
-import { createInternalInvalid, Invalid, VerifyResult, createHiddenInvalid } from "./declare";
+import { createHiddenInvalid, createInternalInvalid, Invalid, VerifyResult } from "./declare";
 
 export const attemptParseDate = (value: any, allowString: boolean): Date | null => {
 
@@ -30,6 +30,34 @@ export const attemptParseDate = (value: any, allowString: boolean): Date | null 
 };
 
 export const fillVerifyResult = (result?: VerifyResult | null): VerifyResult => {
+
+    if (result === null) {
+
+        return {
+            succeed: false,
+            invalids: [createInternalInvalid('exist', 'null', [])],
+        };
+    }
+
+    if (typeof result === 'undefined') {
+
+        return {
+            succeed: false,
+            invalids: [createInternalInvalid('exist', 'undefined', [])],
+        };
+    }
+
+    if (result) {
+        return result;
+    }
+
+    return {
+        succeed: false,
+        invalids: [createInternalInvalid('exist', 'unknown', [])],
+    };
+};
+
+export const fillStringedResult = (result?: VerifyResult | null): VerifyResult => {
 
     if (result === null) {
 
