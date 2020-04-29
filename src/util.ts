@@ -4,7 +4,7 @@
  * @description Util
  */
 
-import { createHiddenInvalid, createInternalInvalid, createStringedResult, createVerifyResult, Invalid, StringedResult, VerifyResult } from "./declare";
+import { createHiddenInvalid, createInternalInvalid, createStringedResult, createVerifyResult, Invalid, StackElement, StringedResult, VerifyResult } from "./declare";
 
 export const attemptParseDate = (value: any, allowString: boolean): Date | null => {
 
@@ -73,28 +73,36 @@ export const fillStringedResult = (result?: StringedResult | null): StringedResu
     return createStringedResult(false, [invalid]);
 };
 
+export const stringifyStack = (stack: StackElement[]): string => {
+
+    const stackList: string[] = stack.map((each: StackElement) => each.toString());
+    return stackList.join(' -> ');
+};
+
 export const stringifyInvalid = (invalid: Invalid): string => {
 
     const expect: string = invalid.expect.toString();
     const actual: string = invalid.actual.toString();
 
+    const stackText: string = stringifyStack(invalid.stack);
+
     switch (invalid.slice) {
 
         case 'range': {
             const relationship: string = invalid.relationship ? invalid.relationship.toString() : 'in';
-            return `Invalid Range; Should ${relationship} ${expect}; But got ${actual}`;
+            return `Invalid Range of "${stackText}"; Should ${relationship} ${expect}; But got ${actual}`;
         }
         case 'size': {
-            return `Invalid Size; Should be size of ${expect}; But got size of ${actual}`;
+            return `Invalid Size of "${stackText}"; Should be size of ${expect}; But got size of ${actual}`;
         }
         case 'type': {
-            return `Invalid Type; Should be type of ${expect}; But got type of ${actual}`;
+            return `Invalid Type of "${stackText}"; Should be type of ${expect}; But got type of ${actual}`;
         }
         case 'value': {
-            return `Invalid Value; Should be ${expect}; But got ${actual}`;
+            return `Invalid Value of "${stackText}"; Should be ${expect}; But got ${actual}`;
         }
         case 'internal': {
-            return `Internal Error; Should be ${expect}; But got ${actual}`;
+            return `Internal Error of "${stackText}"; Should be ${expect}; But got ${actual}`;
         }
         case 'hidden': {
             return `Type Error`;
