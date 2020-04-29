@@ -4,7 +4,7 @@
  * @description Util
  */
 
-import { createHiddenInvalid, createInternalInvalid, Invalid, VerifyResult } from "./declare";
+import { createHiddenInvalid, createInternalInvalid, createStringedResult, createVerifyResult, Invalid, StringedResult, VerifyResult } from "./declare";
 
 export const attemptParseDate = (value: any, allowString: boolean): Date | null => {
 
@@ -33,56 +33,44 @@ export const fillVerifyResult = (result?: VerifyResult | null): VerifyResult => 
 
     if (result === null) {
 
-        return {
-            succeed: false,
-            invalids: [createInternalInvalid('exist', 'null', [])],
-        };
+        const nulledInvalid: Invalid = createInternalInvalid('exist', 'null', []);
+        return createVerifyResult(false, [nulledInvalid]);
     }
 
     if (typeof result === 'undefined') {
 
-        return {
-            succeed: false,
-            invalids: [createInternalInvalid('exist', 'undefined', [])],
-        };
+        const undefinedInvalid: Invalid = createInternalInvalid('exist', 'undefined', []);
+        return createVerifyResult(false, [undefinedInvalid]);
     }
 
     if (result) {
         return result;
     }
 
-    return {
-        succeed: false,
-        invalids: [createInternalInvalid('exist', 'unknown', [])],
-    };
+    const invalid: Invalid = createInternalInvalid('exist', 'unknown', []);
+    return createVerifyResult(false, [invalid]);
 };
 
-export const fillStringedResult = (result?: VerifyResult | null): VerifyResult => {
+export const fillStringedResult = (result?: StringedResult | null): StringedResult => {
 
     if (result === null) {
 
-        return {
-            succeed: false,
-            invalids: [createInternalInvalid('exist', 'null', [])],
-        };
+        const nulledInvalid: string = stringifyInvalid(createInternalInvalid('exist', 'null', []));
+        return createStringedResult(false, [nulledInvalid]);
     }
 
     if (typeof result === 'undefined') {
 
-        return {
-            succeed: false,
-            invalids: [createInternalInvalid('exist', 'undefined', [])],
-        };
+        const undefinedInvalid: string = stringifyInvalid(createInternalInvalid('exist', 'undefined', []));
+        return createStringedResult(false, [undefinedInvalid]);
     }
 
     if (result) {
         return result;
     }
 
-    return {
-        succeed: false,
-        invalids: [createInternalInvalid('exist', 'unknown', [])],
-    };
+    const invalid: string = stringifyInvalid(createInternalInvalid('exist', 'unknown', []));
+    return createStringedResult(false, [invalid]);
 };
 
 export const stringifyInvalid = (invalid: Invalid): string => {
