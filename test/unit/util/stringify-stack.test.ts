@@ -19,7 +19,7 @@ describe('Given a [Util-StringifyStack] helper functions Class', (): void => {
 
         const result: string = stringifyStack(stack);
 
-        expect(result).to.be.equal('(ROOT)');
+        expect(result).to.be.equal('ROOT');
     });
 
     it('should be able to parse string | number stack', (): void => {
@@ -28,6 +28,6 @@ describe('Given a [Util-StringifyStack] helper functions Class', (): void => {
 
         const result: string = stringifyStack(stack);
 
-        expect(result).to.be.equal('hello -> 2 -> world');
+        expect(result).to.be.equal('hello.2.world');
     });
 });
