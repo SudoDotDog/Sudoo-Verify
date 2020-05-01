@@ -120,6 +120,13 @@ export const verifyBigIntPattern: VerifyFunction<BigIntPattern> = (
             return [createValueInvalid(`in-enum`, numeric.toString(), stack)];
         }
     }
+
+    if (typeof pattern.maximum === 'bigint' && pattern.maximum < numeric) {
+        return [createRangeInvalid(pattern.maximum.toString(), numeric.toString(), '<', stack)];
+    }
+    if (typeof pattern.minimum === 'bigint' && pattern.minimum > numeric) {
+        return [createRangeInvalid(pattern.minimum.toString(), numeric.toString(), '>', stack)];
+    }
     return [];
 };
 
