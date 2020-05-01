@@ -95,6 +95,18 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         expect(result).to.be.deep.equal([createTypeInvalid('integer', 'float', [])]);
     });
 
+    it('should be able to verify number - sad path - float', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            float: true,
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, chance.integer(), createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('float', 'integer', [])]);
+    });
+
     it('should be able to verify number - enum', (): void => {
 
         const pattern: NumberPattern = {

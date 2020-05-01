@@ -72,6 +72,10 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
         return [createTypeInvalid('integer', 'float', stack)];
     }
 
+    if (Boolean(pattern.float) && Number.isInteger(numeric)) {
+        return [createTypeInvalid('float', 'integer', stack)];
+    }
+
     if (Array.isArray(pattern.enum)) {
         const included: boolean = pattern.enum.includes(numeric);
         if (!included) {

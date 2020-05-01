@@ -23,6 +23,7 @@ export type NumberPattern = {
     readonly type: 'number';
     readonly allowNaN?: boolean;
     readonly integer?: boolean;
+    readonly float?: boolean;
     readonly minimum?: number;
     readonly maximum?: number;
     readonly enum?: number[];
