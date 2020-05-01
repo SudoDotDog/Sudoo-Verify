@@ -36,6 +36,8 @@ export type BigIntPattern = {
 export type BooleanPattern = {
 
     readonly type: 'boolean';
+    readonly ensureTrue?: boolean;
+    readonly ensureFalse?: boolean;
 } & CommonPattern;
 
 export type DatePattern = {

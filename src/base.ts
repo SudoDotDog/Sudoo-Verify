@@ -124,6 +124,18 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
         return [createTypeInvalid('boolean', typeOfTarget, stack)];
     }
 
+    if (typeof pattern.ensureTrue === 'boolean' && pattern.ensureTrue) {
+        if (!Boolean(target)) {
+            return [createValueInvalid('true', target, stack)];
+        }
+    }
+
+    if (typeof pattern.ensureFalse === 'boolean' && pattern.ensureFalse) {
+        if (Boolean(target)) {
+            return [createValueInvalid('false', target, stack)];
+        }
+    }
+
     return [];
 };
 
