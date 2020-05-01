@@ -68,6 +68,12 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
         }
     }
 
+    if (!Boolean(pattern.allowInfinity)) {
+        if (!Number.isFinite(numeric) && !Number.isNaN(numeric)) {
+            return [createValueInvalid('finite', numeric, stack)];
+        }
+    }
+
     if (Boolean(pattern.integer) && !Number.isInteger(numeric)) {
         return [createTypeInvalid('integer', 'float', stack)];
     }

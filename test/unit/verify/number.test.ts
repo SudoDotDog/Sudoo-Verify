@@ -47,6 +47,17 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         expect(result).to.be.deep.equal([createValueInvalid('not NaN', NaN, [])]);
     });
 
+    it('should be able to verify number - sad path - Infinite', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, Infinity, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createValueInvalid('finite', Infinity, [])]);
+    });
+
     it('should be able to verify number - allow NaN', (): void => {
 
         const pattern: NumberPattern = {
@@ -55,6 +66,30 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         };
 
         const result: Invalid[] = verifyNumberPattern(pattern, NaN, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify number - allow Infinity', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            allowInfinity: true,
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, Infinity, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify number - allow Infinity - negative', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            allowInfinity: true,
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, -Infinity, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
     });

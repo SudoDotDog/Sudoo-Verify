@@ -22,6 +22,7 @@ export type NumberPattern = {
 
     readonly type: 'number';
     readonly allowNaN?: boolean;
+    readonly allowInfinity?: boolean;
     readonly integer?: boolean;
     readonly float?: boolean;
     readonly minimum?: number;
