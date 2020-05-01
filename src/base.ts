@@ -24,7 +24,6 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     const text: string = target as string;
 
     if (Array.isArray(pattern.enum)) {
-
         const included: boolean = pattern.enum.includes(text);
         if (!included) {
             return [createValueInvalid(`in-enum`, text, stack)];
@@ -32,7 +31,6 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     }
 
     if (pattern.regexp) {
-
         const regexpValidateResult: boolean = pattern.regexp.test(text);
         if (!regexpValidateResult) {
             return [createValueInvalid(pattern.regexp, text, stack)];
@@ -64,12 +62,17 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
 
     const numeric: number = target as number;
 
+    if (!Boolean(pattern.allowNaN)) {
+        if (Number.isNaN(numeric)) {
+            return [createValueInvalid('not NaN', numeric, stack)];
+        }
+    }
+
     if (Boolean(pattern.integer) && !Number.isInteger(numeric)) {
         return [createTypeInvalid('integer', 'float', stack)];
     }
 
     if (Array.isArray(pattern.enum)) {
-
         const included: boolean = pattern.enum.includes(numeric);
         if (!included) {
             return [createValueInvalid(`in-enum`, numeric, stack)];
@@ -102,7 +105,6 @@ export const verifyBigIntPattern: VerifyFunction<BigIntPattern> = (
     const numeric: bigint = target as bigint;
 
     if (Array.isArray(pattern.enum)) {
-
         const included: boolean = pattern.enum.includes(numeric);
         if (!included) {
             return [createValueInvalid(`in-enum`, numeric.toString(), stack)];

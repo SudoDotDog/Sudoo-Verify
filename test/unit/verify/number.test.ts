@@ -36,6 +36,29 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         expect(result).to.be.deep.equal([createTypeInvalid('number', 'string', [])]);
     });
 
+    it('should be able to verify number - sad path - NaN', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, NaN, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createValueInvalid('not NaN', NaN, [])]);
+    });
+
+    it('should be able to verify number - allow NaN', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            allowNaN: true,
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, NaN, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
     it('should be able to verify number - sad path - maximum', (): void => {
 
         const pattern: NumberPattern = {
