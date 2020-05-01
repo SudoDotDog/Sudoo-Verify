@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { BooleanPattern, createTypeInvalid, Invalid, verifyBooleanPattern } from '../../../src';
+import { BooleanPattern, createTypeInvalid, createValueInvalid, Invalid, verifyBooleanPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Boolean] Helper Method', (): void => {
@@ -48,6 +48,18 @@ describe('Given a [Verify-Boolean] Helper Method', (): void => {
         expect(result).to.be.deep.equal([]);
     });
 
+    it('should be able to verify boolean - ensure true - sad path', (): void => {
+
+        const pattern: BooleanPattern = {
+            type: 'boolean',
+            ensureTrue: true,
+        };
+
+        const result: Invalid[] = verifyBooleanPattern(pattern, false, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createValueInvalid('true', false, [])]);
+    });
+
     it('should be able to verify boolean - ensure false', (): void => {
 
         const pattern: BooleanPattern = {
@@ -58,5 +70,17 @@ describe('Given a [Verify-Boolean] Helper Method', (): void => {
         const result: Invalid[] = verifyBooleanPattern(pattern, false, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify boolean - ensure false - sad path', (): void => {
+
+        const pattern: BooleanPattern = {
+            type: 'boolean',
+            ensureFalse: true,
+        };
+
+        const result: Invalid[] = verifyBooleanPattern(pattern, true, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createValueInvalid('false', true, [])]);
     });
 });
