@@ -95,19 +95,19 @@ export const stringifyInvalid = (invalid: Invalid): string => {
 
         case 'range': {
             const relationship: string = invalid.relationship ? invalid.relationship.toString() : 'in';
-            return `Invalid Range of (${stackText}); Should [${relationship}] "${expect}"; But got "${actual}"`;
+            return `Invalid Range of [${stackText}]; Should (${relationship}) "${expect}"; But got "${actual}"`;
         }
         case 'size': {
-            return `Invalid Size of (${stackText}); Should be size of "${expect}"; But got size of "${actual}"`;
+            return `Invalid Size of [${stackText}]; Should be size of "${expect}"; But got size of "${actual}"`;
         }
         case 'type': {
-            return `Invalid Type of (${stackText}); Should be type of "${expect}"; But got type of "${actual}"`;
+            return `Invalid Type of [${stackText}]; Should be type of "${expect}"; But got type of "${actual}"`;
         }
         case 'value': {
-            return `Invalid Value of (${stackText}); Should be "${expect}"; But got "${actual}"`;
+            return `Invalid Value of [${stackText}]; Should be "${expect}"; But got "${actual}"`;
         }
         case 'internal': {
-            return `Internal Error of (${stackText}); Should be "${expect}"; But got "${actual}"`;
+            return `Internal Error of [${stackText}]; Should be "${expect}"; But got "${actual}"`;
         }
         case 'hidden': {
             return `Type Error`;
