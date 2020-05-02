@@ -98,6 +98,12 @@ export type AndPattern = {
     readonly requirements: Pattern[];
 } & CommonPattern;
 
+export type ExactPattern = {
+
+    readonly type: 'exact';
+    readonly value: any;
+} & CommonPattern;
+
 export type AnyPattern = {
 
     readonly type: 'any';
@@ -116,4 +122,5 @@ export type Pattern =
     | CustomPattern
     | OrPattern
     | AndPattern
+    | ExactPattern
     | AnyPattern;
