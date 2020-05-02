@@ -86,6 +86,12 @@ export type CustomPattern = {
     readonly validate: (value: any) => boolean;
 } & CommonPattern;
 
+export type EqualsPattern<ValidateKey extends string = 'equals'> = {
+
+    readonly type: 'equals';
+    readonly equals: ValidateKey;
+} & CommonPattern;
+
 export type OrPattern = {
 
     readonly type: 'or';
@@ -120,6 +126,7 @@ export type Pattern =
     | ListPattern
     | ExactListPattern
     | CustomPattern
+    | EqualsPattern
     | OrPattern
     | AndPattern
     | ExactPattern
