@@ -213,6 +213,10 @@ export const verifyExactPattern: VerifyFunction = (
     stack: StackElement[],
 ): Invalid[] => {
 
+    if (target !== pattern.value) {
+        return [createValueInvalid(pattern.value, target, stack)];
+    }
+
     return [];
 };
 
