@@ -5,7 +5,7 @@
  */
 
 import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, NumberPattern, StringPattern } from "./pattern";
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactPattern, NumberPattern, StringPattern } from "./pattern";
 import { attemptParseDate } from "./util";
 
 export const verifyStringPattern: VerifyFunction<StringPattern> = (
@@ -202,6 +202,16 @@ export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
     if (!validateResult) {
         return [createValueInvalid('match validate function', target, stack)];
     }
+
+    return [];
+};
+
+export const verifyExactPattern: VerifyFunction = (
+    pattern: ExactPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
 
     return [];
 };
