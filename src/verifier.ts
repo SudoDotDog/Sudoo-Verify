@@ -58,6 +58,7 @@ export class Verifier {
     public conclude(target: any): StringedResult {
 
         const result: VerifyResult = this.verify(target);
+
         if (result.succeed) {
             return createStringedResult(true);
         }
