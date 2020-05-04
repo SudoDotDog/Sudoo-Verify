@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { Invalid, MapPattern, verifyMapPattern } from '../../../src';
+import { createRangeInvalid, createTypeInvalid, Invalid, MapPattern, verifyMapPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Map] Helper Method', (): void => {
@@ -30,5 +30,81 @@ describe('Given a [Verify-Map] Helper Method', (): void => {
         }, createDefaultVerifyOption(), []);
 
         expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify map - loose', (): void => {
+
+        const pattern: MapPattern = {
+            type: 'map',
+            map: {
+                hello: {
+                    type: 'string',
+                },
+            },
+        };
+
+        const result: Invalid[] = verifyMapPattern(pattern, {
+            hello: chance.string(),
+            world: chance.string(),
+        }, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify map - sad path', (): void => {
+
+        const pattern: MapPattern = {
+            type: 'map',
+            map: {
+                hello: {
+                    type: 'string',
+                },
+            },
+        };
+
+        const result: Invalid[] = verifyMapPattern(pattern, {
+            world: chance.string(),
+        }, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('string', 'undefined', ['hello'])]);
+    });
+
+    it('should be able to verify map - strict', (): void => {
+
+        const pattern: MapPattern = {
+            type: 'map',
+            map: {
+                hello: {
+                    type: 'string',
+                },
+            },
+            strict: true,
+        };
+
+        const result: Invalid[] = verifyMapPattern(pattern, {
+            hello: chance.string(),
+        }, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
+    it('should be able to verify map - strict - sad path', (): void => {
+
+        const pattern: MapPattern = {
+            type: 'map',
+            map: {
+                hello: {
+                    type: 'string',
+                },
+            },
+            strict: true,
+        };
+
+        const result: Invalid[] = verifyMapPattern(pattern, {
+            hello: chance.string(),
+            world: chance.string(),
+        }, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createRangeInvalid('hello', 'world', 'not included', [])]);
     });
 });
