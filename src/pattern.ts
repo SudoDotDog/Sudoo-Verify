@@ -57,6 +57,7 @@ export type MapPattern = {
 
     readonly type: 'map';
     readonly map: Record<string, Pattern>;
+    readonly strict?: boolean;
 } & CommonPattern;
 
 export type RecordPattern = {

@@ -137,6 +137,17 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
     const invalids: Invalid[] = [];
 
     const keys: StackElement[] = Object.keys(pattern.map);
+
+    if (pattern.strict) {
+
+        const actualKeys: StackElement[] = Object.keys(target);
+        for (const actualKey of actualKeys) {
+            if (!keys.includes(actualKey)) {
+                invalids.push(createRangeInvalid(keys.join(','), actualKey, 'not included', stack));
+            }
+        }
+    }
+
     for (const key of keys) {
 
         const newStack: StackElement[] = [...stack, key];
