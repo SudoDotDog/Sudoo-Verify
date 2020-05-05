@@ -16,7 +16,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'number': return verifyNumberPattern;
         case 'bigint': return verifyBigIntPattern;
         case 'boolean': return verifyBooleanPattern;
-        case 'date': return verifyDatePattern;]
+        case 'date': return verifyDatePattern;
         case 'function': return verifyFunctionPattern;
         case 'list': return verifyListPattern;
         case 'exact-list': return verifyExactList;
