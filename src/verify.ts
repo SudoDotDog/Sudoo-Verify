@@ -132,7 +132,7 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
     const typeOfTarget = typeof target;
 
     if (typeOfTarget !== 'object') {
-        return [createTypeInvalid('map', typeOfTarget, stack)];
+        return [createTypeInvalid('object', typeOfTarget, stack)];
     }
 
     const invalids: Invalid[] = [];
@@ -172,7 +172,7 @@ export const verifyRecordPattern: VerifyFunction<RecordPattern> = (
     const typeOfTarget = typeof target;
 
     if (typeOfTarget !== 'object') {
-        return [createTypeInvalid('record', typeOfTarget, stack)];
+        return [createTypeInvalid('object', typeOfTarget, stack)];
     }
 
     const invalids: Invalid[] = [];
