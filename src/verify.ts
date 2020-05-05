@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { verifyAnyPattern, verifyBigIntPattern, verifyBooleanPattern, verifyCustomPattern, verifyDatePattern, verifyExactPattern, verifyNeverPattern, verifyNumberPattern, verifyStringPattern } from "./base";
+import { verifyAnyPattern, verifyBigIntPattern, verifyBooleanPattern, verifyCustomPattern, verifyDatePattern, verifyExactPattern, verifyFunctionPattern, verifyNeverPattern, verifyNumberPattern, verifyStringPattern } from "./base";
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { AndPattern, ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "./pattern";
 
@@ -16,7 +16,8 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'number': return verifyNumberPattern;
         case 'bigint': return verifyBigIntPattern;
         case 'boolean': return verifyBooleanPattern;
-        case 'date': return verifyDatePattern;
+        case 'date': return verifyDatePattern;]
+        case 'function': return verifyFunctionPattern;
         case 'list': return verifyListPattern;
         case 'exact-list': return verifyExactList;
         case 'map': return verifyMapPattern;

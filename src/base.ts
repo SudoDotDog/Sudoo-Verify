@@ -5,7 +5,7 @@
  */
 
 import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactPattern, NumberPattern, StringPattern } from "./pattern";
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactPattern, FunctionPattern, NumberPattern, StringPattern } from "./pattern";
 import { attemptParseDate } from "./util";
 
 export const verifyStringPattern: VerifyFunction<StringPattern> = (
@@ -186,6 +186,24 @@ export const verifyDatePattern: VerifyFunction<DatePattern> = (
             return [createRangeInvalid(pattern.after, date, '>', stack)];
         }
     }
+
+    return [];
+};
+
+export const verifyFunctionPattern: VerifyFunction<FunctionPattern> = (
+    pattern: FunctionPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    const typeOfTarget = typeof target;
+
+    if (typeOfTarget !== 'function') {
+        return [createTypeInvalid('function', typeOfTarget, stack)];
+    }
+
+    return [];
 
     return [];
 };
