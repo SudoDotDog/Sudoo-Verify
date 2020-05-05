@@ -84,6 +84,15 @@ export const stringifyStack = (stack: StackElement[]): string => {
     return stackList.join('.');
 };
 
+export const getTypeOf = (target: any): string => {
+
+    if (target === null) {
+        return 'null';
+    }
+
+    return typeof target;
+};
+
 export const stringifyExpectElement = (element: ExpectElement): string => {
 
     if (typeof element === 'undefined') {

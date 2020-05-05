@@ -35,7 +35,7 @@ describe('Given a [Verify-Empty] Helper Method', (): void => {
 
         const result: Invalid[] = verifyEmptyPattern(pattern, null, createDefaultVerifyOption(), []);
 
-        expect(result).to.be.deep.equal([createTypeInvalid('empty', null, [])]);
+        expect(result).to.be.deep.equal([createTypeInvalid('empty', 'null', [])]);
     });
 
     it('should be able to verify empty - null', (): void => {
@@ -59,6 +59,41 @@ describe('Given a [Verify-Empty] Helper Method', (): void => {
 
         const result: Invalid[] = verifyEmptyPattern(pattern, undefined, createDefaultVerifyOption(), []);
 
-        expect(result).to.be.deep.equal([createTypeInvalid('empty', undefined, [])]);
+        expect(result).to.be.deep.equal([createTypeInvalid('empty', 'undefined', [])]);
+    });
+
+    it('should be able to verify empty - sad path', (): void => {
+
+        const pattern: EmptyPattern = {
+            type: 'empty',
+            allowNull: true,
+            allowUndefined: true,
+        };
+
+        const result: Invalid[] = verifyEmptyPattern(pattern, chance.string(), createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('empty', 'string', [])]);
+    });
+
+    it('should be able to verify empty - undefined - sad path', (): void => {
+
+        const pattern: EmptyPattern = {
+            type: 'empty',
+        };
+
+        const result: Invalid[] = verifyEmptyPattern(pattern, undefined, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('empty', 'undefined', [])]);
+    });
+
+    it('should be able to verify empty - null - sad path', (): void => {
+
+        const pattern: EmptyPattern = {
+            type: 'empty',
+        };
+
+        const result: Invalid[] = verifyEmptyPattern(pattern, null, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('empty', 'null', [])]);
     });
 });
