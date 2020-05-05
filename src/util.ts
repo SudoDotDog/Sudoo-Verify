@@ -4,7 +4,7 @@
  * @description Util
  */
 
-import { createHiddenInvalid, createInternalInvalid, createStringedResult, createVerifyResult, Invalid, StackElement, StringedResult, VerifyResult } from "./declare";
+import { createHiddenInvalid, createInternalInvalid, createStringedResult, createVerifyResult, ExpectElement, Invalid, StackElement, StringedResult, VerifyResult } from "./declare";
 
 export const attemptParseDate = (value: any, allowString: boolean): Date | null => {
 
@@ -84,10 +84,23 @@ export const stringifyStack = (stack: StackElement[]): string => {
     return stackList.join('.');
 };
 
+export const stringifyExpectElement = (element: ExpectElement): string => {
+
+    if (typeof element === 'undefined') {
+        return 'undefined';
+    }
+
+    if (element === null) {
+        return 'null';
+    }
+
+    return element.toString();
+};
+
 export const stringifyInvalid = (invalid: Invalid): string => {
 
-    const expect: string = invalid.expect.toString();
-    const actual: string = invalid.actual.toString();
+    const expect: string = stringifyExpectElement(invalid.expect);
+    const actual: string = stringifyExpectElement(invalid.actual);
 
     const stackText: string = stringifyStack(invalid.stack);
 
