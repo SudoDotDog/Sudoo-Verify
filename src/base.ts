@@ -15,7 +15,7 @@ export const verifyStringPattern: VerifyFunction<StringPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'string') {
         return [createTypeInvalid('string', typeOfTarget, stack)];
@@ -54,7 +54,7 @@ export const verifyNumberPattern: VerifyFunction<NumberPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'number') {
         return [createTypeInvalid('number', typeOfTarget, stack)];
@@ -106,7 +106,7 @@ export const verifyBigIntPattern: VerifyFunction<BigIntPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'bigint') {
         return [createTypeInvalid('bigint', typeOfTarget, stack)];
@@ -137,7 +137,7 @@ export const verifyBooleanPattern: VerifyFunction<BooleanPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'boolean') {
         return [createTypeInvalid('boolean', typeOfTarget, stack)];
@@ -167,7 +167,8 @@ export const verifyDatePattern: VerifyFunction<DatePattern> = (
 
     const date: Date | null = attemptParseDate(target, Boolean(pattern.allowString));
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
+
     if (!date) {
         return [createTypeInvalid('date', typeOfTarget, stack)];
     }
@@ -197,7 +198,7 @@ export const verifyFunctionPattern: VerifyFunction<FunctionPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'function') {
         return [createTypeInvalid('function', typeOfTarget, stack)];

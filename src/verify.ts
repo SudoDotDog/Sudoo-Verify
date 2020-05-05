@@ -7,6 +7,7 @@
 import { verifyAnyPattern, verifyBigIntPattern, verifyBooleanPattern, verifyCustomPattern, verifyDatePattern, verifyEmptyPattern, verifyExactPattern, verifyFunctionPattern, verifyNeverPattern, verifyNumberPattern, verifyStringPattern } from "./base";
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { AndPattern, ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "./pattern";
+import { getTypeOf } from "./util";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
 
@@ -42,7 +43,8 @@ export const verifyPattern = (
 
     const invalids: Invalid[] = [];
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
+
     if (typeOfTarget === 'undefined' && Boolean(pattern.optional)) {
         return [];
     }
@@ -95,7 +97,7 @@ export const verifyExactList: VerifyFunction<ExactListPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (!Array.isArray(target)) {
         return [createTypeInvalid('list', typeOfTarget, stack)];
@@ -130,7 +132,7 @@ export const verifyMapPattern: VerifyFunction<MapPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'object') {
         return [createTypeInvalid('object', typeOfTarget, stack)];
@@ -170,7 +172,7 @@ export const verifyRecordPattern: VerifyFunction<RecordPattern> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    const typeOfTarget = typeof target;
+    const typeOfTarget: string = getTypeOf(target);
 
     if (typeOfTarget !== 'object') {
         return [createTypeInvalid('object', typeOfTarget, stack)];
