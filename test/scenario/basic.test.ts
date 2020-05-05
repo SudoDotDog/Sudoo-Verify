@@ -157,7 +157,7 @@ describe('Given a (Basic) Scenario', (): void => {
 
         const result: VerifyResult = verifier.verify(chance.string());
 
-        expect(result).to.be.deep.equal(createVerifyResult(false, [createTypeInvalid('map', 'string', [])]));
+        expect(result).to.be.deep.equal(createVerifyResult(false, [createTypeInvalid('object', 'string', [])]));
     });
 
     it('should be able to verify custom', (): void => {
