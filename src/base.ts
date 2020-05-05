@@ -224,7 +224,7 @@ export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
     return [];
 };
 
-export const verifyExactPattern: VerifyFunction = (
+export const verifyExactPattern: VerifyFunction<ExactPattern> = (
     pattern: ExactPattern,
     target: any,
     option: VerifyOption,
@@ -238,7 +238,7 @@ export const verifyExactPattern: VerifyFunction = (
     return [];
 };
 
-export const verifyAnyPattern: VerifyFunction = (
+export const verifyAnyPattern: VerifyFunction<AnyPattern> = (
     pattern: AnyPattern,
     target: any,
     option: VerifyOption,
@@ -248,7 +248,7 @@ export const verifyAnyPattern: VerifyFunction = (
     return [];
 };
 
-export const verifyNeverPattern: VerifyFunction = (
+export const verifyNeverPattern: VerifyFunction<any> = (
     pattern: any,
     target: any,
     option: VerifyOption,

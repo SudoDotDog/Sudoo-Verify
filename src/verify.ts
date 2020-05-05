@@ -198,7 +198,7 @@ export const verifyRecordPattern: VerifyFunction<RecordPattern> = (
     return invalids;
 };
 
-export const verifyOrPattern: VerifyFunction = (
+export const verifyOrPattern: VerifyFunction<OrPattern> = (
     pattern: OrPattern,
     target: any,
     option: VerifyOption,
@@ -219,7 +219,7 @@ export const verifyOrPattern: VerifyFunction = (
     return invalids;
 };
 
-export const verifyAndPattern: VerifyFunction = (
+export const verifyAndPattern: VerifyFunction<AndPattern> = (
     pattern: AndPattern,
     target: any,
     option: VerifyOption,
