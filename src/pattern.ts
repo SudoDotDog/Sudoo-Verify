@@ -53,6 +53,11 @@ export type DatePattern = {
     readonly after?: Date;
 } & CommonPattern;
 
+export type FunctionPattern = {
+
+    readonly type: 'function',
+} & CommonPattern;
+
 export type MapPattern = {
 
     readonly type: 'map';
@@ -116,6 +121,7 @@ export type Pattern =
     | BigIntPattern
     | BooleanPattern
     | DatePattern
+    | FunctionPattern
     | MapPattern
     | RecordPattern
     | ListPattern
