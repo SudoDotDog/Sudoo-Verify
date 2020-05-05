@@ -5,7 +5,7 @@
  */
 
 import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, ExactPattern, FunctionPattern, NumberPattern, StringPattern } from "./pattern";
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, EmptyPattern, ExactPattern, FunctionPattern, NumberPattern, StringPattern } from "./pattern";
 import { attemptParseDate } from "./util";
 
 export const verifyStringPattern: VerifyFunction<StringPattern> = (
@@ -236,6 +236,30 @@ export const verifyExactPattern: VerifyFunction<ExactPattern> = (
     }
 
     return [];
+};
+
+export const verifyEmptyPattern: VerifyFunction<EmptyPattern> = (
+    pattern: EmptyPattern,
+    target: any,
+    option: VerifyOption,
+    stack: StackElement[],
+): Invalid[] => {
+
+    if (typeof pattern.allowUndefined === 'boolean' && pattern.allowUndefined) {
+        if (typeof target === 'undefined') {
+            return [];
+        }
+    }
+
+    if (typeof pattern.allowNull === 'boolean' && pattern.allowNull) {
+        if (target === null) {
+            return [];
+        }
+    }
+
+    const typeOfTarget = typeof target;
+
+    return [createTypeInvalid('empty', typeOfTarget, stack)];
 };
 
 export const verifyAnyPattern: VerifyFunction<AnyPattern> = (
