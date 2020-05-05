@@ -110,6 +110,13 @@ export type ExactPattern = {
     readonly value: any;
 } & CommonPattern;
 
+export type EmptyPattern = {
+
+    readonly type: 'empty';
+    readonly allowUndefined?: boolean;
+    readonly allowNull?: boolean;
+} & CommonPattern;
+
 export type AnyPattern = {
 
     readonly type: 'any';
@@ -130,4 +137,5 @@ export type Pattern =
     | OrPattern
     | AndPattern
     | ExactPattern
+    | EmptyPattern
     | AnyPattern;
