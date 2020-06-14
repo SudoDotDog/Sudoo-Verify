@@ -4,9 +4,9 @@
  * @description Verify
  */
 
+import { AndPattern, ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "@sudoo/pattern";
 import { verifyAnyPattern, verifyBigIntPattern, verifyBooleanPattern, verifyCustomPattern, verifyDatePattern, verifyEmptyPattern, verifyExactPattern, verifyFunctionPattern, verifyNeverPattern, verifyNumberPattern, verifyStringPattern } from "./base";
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AndPattern, ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "./pattern";
 import { getTypeOf } from "./util";
 
 export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {

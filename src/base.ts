@@ -4,8 +4,8 @@
  * @description Base
  */
 
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, EmptyPattern, ExactPattern, FunctionPattern, NumberPattern, StringPattern } from "@sudoo/pattern";
 import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
-import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, EmptyPattern, ExactPattern, FunctionPattern, NumberPattern, StringPattern } from "./pattern";
 import { attemptParseDate, getTypeOf } from "./util";
 
 export const verifyStringPattern: VerifyFunction<StringPattern> = (

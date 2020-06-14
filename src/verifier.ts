@@ -4,8 +4,8 @@
  * @description Verifier
  */
 
+import { Pattern } from "@sudoo/pattern";
 import { createStringedResult, createVerifyResult, Invalid, StringedResult, VerifyOption, VerifyResult } from "./declare";
-import { Pattern } from "./pattern";
 import { hideInvalidDetail, stringifyInvalid } from "./util";
 import { verifyPattern } from "./verify";
 
