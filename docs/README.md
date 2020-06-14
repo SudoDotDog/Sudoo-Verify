@@ -6,3 +6,13 @@
 [![downloads](https://img.shields.io/npm/dm/@sudoo/verify.svg)](https://www.npmjs.com/package/@sudoo/verify)
 
 :beetle: Runtime schema verify
+
+## Install
+
+```sh
+yarn add @sudoo/verify
+yarn add @sudoo/pattern # Peer Dependencies
+# Or
+npm install @sudoo/verify --save
+npm install @sudoo/pattern --save # Peer Dependencies
+```
