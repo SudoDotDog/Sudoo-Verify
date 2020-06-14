@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { ExactPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createValueInvalid, ExactPattern, Invalid, verifyExactPattern } from '../../../src';
+import { createValueInvalid, Invalid, verifyExactPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Exact] Helper Method', (): void => {

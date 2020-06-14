@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { AndPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { AndPattern, createTypeInvalid, createValueInvalid, Invalid, verifyAndPattern } from '../../../src';
+import { createTypeInvalid, createValueInvalid, Invalid, verifyAndPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-And] Helper Method', (): void => {

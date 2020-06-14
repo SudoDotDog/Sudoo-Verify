@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { EmptyPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createTypeInvalid, EmptyPattern, Invalid, verifyEmptyPattern } from '../../../src';
+import { createTypeInvalid, Invalid, verifyEmptyPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Empty] Helper Method', (): void => {

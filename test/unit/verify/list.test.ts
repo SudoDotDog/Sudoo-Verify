@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { ListPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { Invalid, ListPattern, verifyListPattern } from '../../../src';
+import { Invalid, verifyListPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-List] Helper Method', (): void => {

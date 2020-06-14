@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { BooleanPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { BooleanPattern, createTypeInvalid, createValueInvalid, Invalid, verifyBooleanPattern } from '../../../src';
+import { createTypeInvalid, createValueInvalid, Invalid, verifyBooleanPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Boolean] Helper Method', (): void => {

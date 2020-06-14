@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { DatePattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createRangeInvalid, createTypeInvalid, DatePattern, Invalid, verifyDatePattern } from '../../../src';
+import { createRangeInvalid, createTypeInvalid, Invalid, verifyDatePattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Date] Helper Method', (): void => {

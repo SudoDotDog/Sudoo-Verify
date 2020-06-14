@@ -5,7 +5,7 @@
  * @override Mock
  */
 
-import { Pattern } from "../../src";
+import { Pattern } from "@sudoo/pattern";
 
 export const createMockStringPattern = (): Pattern => {
 

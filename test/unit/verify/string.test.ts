@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { StringPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, StringPattern, verifyStringPattern } from '../../../src';
+import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, verifyStringPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-String] Helper Method', (): void => {

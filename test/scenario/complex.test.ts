@@ -5,9 +5,10 @@
  * @override Scenario
  */
 
+import { Pattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { Pattern, Verifier, VerifyResult } from '../../src';
+import { Verifier, VerifyResult } from '../../src';
 
 describe('Given a (Complex) Scenario', (): void => {
 

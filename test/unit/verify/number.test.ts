@@ -5,9 +5,10 @@
  * @override Unit
  */
 
+import { NumberPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, NumberPattern, verifyNumberPattern } from '../../../src';
+import { createRangeInvalid, createTypeInvalid, createValueInvalid, Invalid, verifyNumberPattern } from '../../../src';
 import { createDefaultVerifyOption } from '../../mock/verify';
 
 describe('Given a [Verify-Number] Helper Method', (): void => {
