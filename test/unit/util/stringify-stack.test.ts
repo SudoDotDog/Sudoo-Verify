@@ -11,6 +11,7 @@ import { StackElement, stringifyStack } from '../../../src';
 
 describe('Given a [Util-StringifyStack] helper functions Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('verify-util-stringify-stack');
 
     it('should be able to parse root', (): void => {

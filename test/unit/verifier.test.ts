@@ -12,6 +12,7 @@ import { createMockStringPattern } from '../mock/pattern';
 
 describe('Given a {Verifier} Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('verify-verifier');
 
     it('should be able to create', (): void => {

@@ -264,9 +264,13 @@ export const verifyEmptyPattern: VerifyFunction<EmptyPattern> = (
 };
 
 export const verifyAnyPattern: VerifyFunction<AnyPattern> = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     pattern: AnyPattern,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     target: any,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     option: VerifyOption,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     stack: StackElement[],
 ): Invalid[] => {
 

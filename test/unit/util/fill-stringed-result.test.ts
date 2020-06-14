@@ -11,6 +11,7 @@ import { createInternalInvalid, createTypeInvalid, fillStringedResult, StringedR
 
 describe('Given a [Util-FillStringedResult] helper functions Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('verify-util-fill-stringed-result');
 
     it('should be able to fill verify result', (): void => {

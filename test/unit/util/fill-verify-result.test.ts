@@ -11,6 +11,7 @@ import { createInternalInvalid, createTypeInvalid, fillVerifyResult, VerifyResul
 
 describe('Given a [Util-FillVerifyResult] helper functions Class', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('verify-util-fill-verify-result');
 
     it('should be able to fill verify result', (): void => {
