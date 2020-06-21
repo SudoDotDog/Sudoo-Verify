@@ -264,15 +264,25 @@ export const verifyEmptyPattern: VerifyFunction<EmptyPattern> = (
 };
 
 export const verifyAnyPattern: VerifyFunction<AnyPattern> = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     pattern: AnyPattern,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     target: any,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     option: VerifyOption,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     stack: StackElement[],
 ): Invalid[] => {
+
+    if (typeof pattern.banishNull === 'boolean' && pattern.banishNull) {
+        if (target === null) {
+            const typeOfTarget: string = getTypeOf(target);
+            return [createTypeInvalid('any', typeOfTarget, stack)];
+        }
+    }
+
+    if (typeof pattern.banishUndefined === 'boolean' && pattern.banishUndefined) {
+        if (typeof target === 'undefined') {
+            const typeOfTarget: string = getTypeOf(target);
+            return [createTypeInvalid('any', typeOfTarget, stack)];
+        }
+    }
 
     return [];
 };
@@ -284,5 +294,6 @@ export const verifyNeverPattern: VerifyFunction<any> = (
     stack: StackElement[],
 ): Invalid[] => {
 
-    return [createTypeInvalid('never', typeof target, stack)];
+    const typeOfTarget: string = getTypeOf(target);
+    return [createTypeInvalid('never', typeOfTarget, stack)];
 };
