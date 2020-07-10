@@ -143,6 +143,44 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         expect(result).to.be.deep.equal([createTypeInvalid('float', 'integer', [])]);
     });
 
+    it('should be able to verify number - sad path - not float - fraction', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            fraction: true,
+        };
+
+        const result: Invalid[] = verifyNumberPattern(pattern, chance.integer(), createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createTypeInvalid('fraction', 'integer', [])]);
+    });
+
+    it('should be able to verify number - sad path - < 0 - fraction', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            fraction: true,
+        };
+
+        const value: number = -0.5;
+        const result: Invalid[] = verifyNumberPattern(pattern, value, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createRangeInvalid(0, value, '>', [])]);
+    });
+
+    it('should be able to verify number - sad path - > 1 - fraction', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            fraction: true,
+        };
+
+        const value: number = 1.5;
+        const result: Invalid[] = verifyNumberPattern(pattern, value, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([createRangeInvalid(1, value, '<', [])]);
+    });
+
     it('should be able to verify number - enum', (): void => {
 
         const pattern: NumberPattern = {
