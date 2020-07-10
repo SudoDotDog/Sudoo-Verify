@@ -143,6 +143,19 @@ describe('Given a [Verify-Number] Helper Method', (): void => {
         expect(result).to.be.deep.equal([createTypeInvalid('float', 'integer', [])]);
     });
 
+    it('should be able to verify number - happy path - fraction', (): void => {
+
+        const pattern: NumberPattern = {
+            type: 'number',
+            fraction: true,
+        };
+
+        const value: number = 0.5;
+        const result: Invalid[] = verifyNumberPattern(pattern, value, createDefaultVerifyOption(), []);
+
+        expect(result).to.be.deep.equal([]);
+    });
+
     it('should be able to verify number - sad path - not float - fraction', (): void => {
 
         const pattern: NumberPattern = {
