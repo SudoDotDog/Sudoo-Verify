@@ -40,7 +40,12 @@ export class Verifier {
 
     public verify(target: any): VerifyResult {
 
-        const invalids: Invalid[] = verifyPattern(this._pattern, target, this._getOption(), []);
+        const invalids: Invalid[] = verifyPattern(
+            this._pattern,
+            target,
+            this._getOption(),
+            [],
+        );
 
         if (invalids.length === 0) {
 
