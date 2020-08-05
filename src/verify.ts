@@ -20,7 +20,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'date': return verifyDatePattern;
         case 'function': return verifyFunctionPattern;
         case 'list': return verifyListPattern;
-        case 'exact-list': return verifyExactList;
+        case 'exact-list': return verifyExactListPattern;
         case 'map': return verifyMapPattern;
         case 'record': return verifyRecordPattern;
         case 'custom': return verifyCustomPattern;
@@ -90,7 +90,7 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
     return invalids;
 };
 
-export const verifyExactList: VerifyFunction<ExactListPattern> = (
+export const verifyExactListPattern: VerifyFunction<ExactListPattern> = (
     pattern: ExactListPattern,
     target: any,
     option: VerifyOption,
