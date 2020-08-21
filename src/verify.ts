@@ -4,7 +4,7 @@
  * @description Verify
  */
 
-import { AndPattern, ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "@sudoo/pattern";
+import { AndPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern, TuplePattern } from "@sudoo/pattern";
 import { verifyAnyPattern, verifyBigIntPattern, verifyBooleanPattern, verifyCustomPattern, verifyDatePattern, verifyEmptyPattern, verifyExactPattern, verifyFunctionPattern, verifyNeverPattern, verifyNumberPattern, verifyStringPattern } from "./base";
 import { createRangeInvalid, createSizeInvalid, createTypeInvalid, Invalid, StackElement, VerifyFunction, VerifyOption } from "./declare";
 import { getTypeOf } from "./util";
@@ -20,7 +20,7 @@ export const getVerifyFunction = (pattern: Pattern): VerifyFunction => {
         case 'date': return verifyDatePattern;
         case 'function': return verifyFunctionPattern;
         case 'list': return verifyListPattern;
-        case 'exact-list': return verifyExactListPattern;
+        case 'tuple': return verifyTuplePattern;
         case 'map': return verifyMapPattern;
         case 'record': return verifyRecordPattern;
         case 'custom': return verifyCustomPattern;
@@ -90,8 +90,8 @@ export const verifyListPattern: VerifyFunction<ListPattern> = (
     return invalids;
 };
 
-export const verifyExactListPattern: VerifyFunction<ExactListPattern> = (
-    pattern: ExactListPattern,
+export const verifyTuplePattern: VerifyFunction<TuplePattern> = (
+    pattern: TuplePattern,
     target: any,
     option: VerifyOption,
     stack: StackElement[],
