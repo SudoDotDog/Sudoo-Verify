@@ -27,7 +27,7 @@ export const createMockListPattern = (): Pattern => {
 export const createMockExactListPattern = (): Pattern => {
 
     return {
-        type: 'exact-list',
+        type: 'tuple',
         list: [{
             type: 'string',
         }, {
