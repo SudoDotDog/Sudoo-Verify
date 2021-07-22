@@ -1,7 +1,7 @@
 {
   "name": "@sudoo/verify",
   "version": "1.16.0",
-  "description": ":beetle: Runtime schema verify",
+  "description": "Runtime schema verify",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Sudoo-Verify.git"

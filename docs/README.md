@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/%40sudoo%2Fverify.svg)](https://badge.fury.io/js/%40sudoo%2Fverify)
 [![downloads](https://img.shields.io/npm/dm/@sudoo/verify.svg)](https://www.npmjs.com/package/@sudoo/verify)
 
-:beetle: Runtime schema verify
+Runtime schema verify
 
 ## Install
 
