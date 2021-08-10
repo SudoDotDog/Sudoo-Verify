@@ -230,13 +230,13 @@ export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
 
     if (!validateResult) {
 
-        if (typeof pattern.invalidMessage !== 'undefined') {
+        if (typeof pattern.invalidMessage === 'function') {
 
             const invalidMessage: string = pattern.invalidMessage(target);
             return [createValueInvalid(invalidMessage, target, stack)];
         }
 
-        if (typeof pattern.role !== 'undefined') {
+        if (typeof pattern.role === 'string') {
 
             return [createValueInvalid(`match validate function of role ${pattern.role}`, target, stack)];
         }
