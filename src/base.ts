@@ -217,8 +217,6 @@ export const verifyFunctionPattern: VerifyFunction<FunctionPattern> = (
     }
 
     return [];
-
-    return [];
 };
 
 export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
@@ -231,6 +229,18 @@ export const verifyCustomPattern: VerifyFunction<CustomPattern> = (
     const validateResult: boolean = pattern.validate(target);
 
     if (!validateResult) {
+
+        if (typeof pattern.invalidMessage !== 'undefined') {
+
+            const invalidMessage: string = pattern.invalidMessage(target);
+            return [createValueInvalid(invalidMessage, target, stack)];
+        }
+
+        if (typeof pattern.role !== 'undefined') {
+
+            return [createValueInvalid(`match validate function of role ${pattern.role}`, target, stack)];
+        }
+
         return [createValueInvalid('match validate function', target, stack)];
     }
 
