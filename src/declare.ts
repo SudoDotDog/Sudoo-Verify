@@ -37,7 +37,7 @@ export type StringedResult = {
     readonly succeed: boolean;
 };
 
-export type VerifyFunction<P extends any = any> = (pattern: P, target: any, option: VerifyOption, stack: StackElement[]) => Invalid[];
+export type VerifyFunction<P = any> = (pattern: P, target: any, option: VerifyOption, stack: StackElement[]) => Invalid[];
 
 export const createInvalid = (expect: ExpectElement, actual: ExpectElement, slice: InvalidSlice, stack: StackElement[], relationship?: string): Invalid => {
 

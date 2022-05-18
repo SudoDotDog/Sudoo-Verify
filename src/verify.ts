@@ -49,6 +49,10 @@ export const verifyPattern = (
         return [];
     }
 
+    if (target === null && Boolean(pattern.nullable)) {
+        return [];
+    }
+
     const verifyFunction: VerifyFunction = getVerifyFunction(pattern);
 
     const result: Invalid[] = verifyFunction(pattern, target, option, stack);
